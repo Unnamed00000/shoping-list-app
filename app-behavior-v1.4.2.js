@@ -14,9 +14,10 @@
     body {
       max-width: 100%;
       width: 100%;
+      height: 100%;
       min-height: 100%;
       overflow-x: hidden !important;
-      overflow-y: auto !important;
+      overflow-y: hidden !important;
       overscroll-behavior-x: none;
       overscroll-behavior-y: none;
       -webkit-text-size-adjust: 100%;
@@ -29,9 +30,19 @@
     }
 
     .app {
+      position: fixed;
+      top: var(--topbar-height);
+      right: 0;
+      bottom: var(--footer-height);
+      left: 0;
       max-width: 100%;
-      overflow: visible !important;
+      width: min(100%, 760px);
+      margin: 0 auto;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
       touch-action: pan-y;
+      overscroll-behavior-y: contain;
+      -webkit-overflow-scrolling: touch;
     }
 
     .card,
@@ -74,6 +85,10 @@
 
   document.head.appendChild(style);
 
+  function getMainScroller() {
+    return document.querySelector(".app");
+  }
+
   document.addEventListener(
     "touchstart",
     event => {
@@ -103,7 +118,18 @@
   window.addEventListener(
     "wheel",
     event => {
-      if (event.ctrlKey) event.preventDefault();
+      if (event.ctrlKey) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.target.closest(".topbar, .app-footer")) {
+        const scroller = getMainScroller();
+        if (scroller) {
+          scroller.scrollTop += event.deltaY;
+          event.preventDefault();
+        }
+      }
     },
     { passive: false }
   );
