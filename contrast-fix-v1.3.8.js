@@ -11,6 +11,35 @@
       font-weight: 950 !important;
     }
 
+    body.theme-dark .wide-settings-btn,
+    body:not(.theme-light) .wide-settings-btn,
+    body.theme-dark #openHistoryBtn,
+    body:not(.theme-light) #openHistoryBtn {
+      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255,255,255,.35) !important;
+      opacity: 1 !important;
+      text-shadow: none !important;
+      font-weight: 950 !important;
+      box-shadow: 0 14px 26px rgba(22,163,74,.28) !important;
+    }
+
+    body.theme-dark .wide-settings-btn *,
+    body:not(.theme-light) .wide-settings-btn *,
+    body.theme-dark #openHistoryBtn *,
+    body:not(.theme-light) #openHistoryBtn * {
+      color: #ffffff !important;
+      opacity: 1 !important;
+    }
+
+    body.theme-light .wide-settings-btn,
+    body.theme-light #openHistoryBtn {
+      background: linear-gradient(135deg, #16a34a, #15803d) !important;
+      color: #ffffff !important;
+      opacity: 1 !important;
+      font-weight: 950 !important;
+    }
+
     body.theme-dark .history-action-btn,
     body:not(.theme-light) .history-action-btn {
       background: #334155 !important;
