@@ -7,6 +7,7 @@
       max-width: 100%;
       overflow-x: hidden !important;
       overscroll-behavior-x: none;
+      overscroll-behavior-y: contain;
     }
 
     .app,
