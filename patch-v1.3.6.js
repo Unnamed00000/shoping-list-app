@@ -1,4 +1,18 @@
 (() => {
+  if (priceInput) {
+    priceInput.removeAttribute("required");
+    priceInput.value = "";
+    priceInput.placeholder = "0";
+  }
+
+  const priceText = () => {
+    const lang = state.language;
+    if (lang === "ru") return "Цена";
+    if (lang === "ka") return "ფასი";
+    if (lang === "da") return "Pris";
+    return "Price";
+  };
+
   const cancelText = () => {
     const lang = state.language;
     if (lang === "ru") return "Отмена";
@@ -28,6 +42,16 @@
     }, 3000);
   };
 
+  window.changeItemPriceInline = (id, value) => {
+    const cleanPrice = value === "" ? 0 : Math.max(0, Number(value || 0));
+    state.items = state.items.map((item) => item.id === id ? { ...item, price: cleanPrice } : item);
+    saveState();
+    renderSummary();
+    const item = state.items.find((item) => item.id === id);
+    const totalNode = document.querySelector(`[data-item-total-id="${id}"]`);
+    if (item && totalNode) totalNode.textContent = `${getDict().totalLabel}: ${formatMoney(itemTotal(item))}`;
+  };
+
   window.askDeleteReceiptInline = (id) => {
     state.pendingDeleteId = id;
     renderHistory();
@@ -47,6 +71,48 @@
     renderSelectedHistoryTotal();
     updateStoreList();
     showHistoryMessage(deletedText());
+  };
+
+  renderItems = function () {
+    if (!itemsList || !emptyState) return;
+    const d = getDict();
+    itemsList.innerHTML = "";
+    emptyState.style.display = state.items.length ? "none" : "block";
+
+    state.items.forEach((item) => {
+      const article = document.createElement("article");
+      article.className = `item-card ${item.done ? "done" : ""}`;
+      const priceValue = Number(item.price || 0) > 0 ? Number(item.price || 0) : "";
+      article.innerHTML = `
+        <input class="check" type="checkbox" ${item.done ? "checked" : ""} aria-label="${d.boughtItems}" />
+        <div>
+          <h3 class="item-name"></h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;align-items:end">
+            <div>
+              <div style="font-size:.78rem;color:#64748b;font-weight:900;margin-bottom:6px">${priceText()}</div>
+              <input class="inline-price-input" type="number" min="0" step="0.01" value="${priceValue}" placeholder="0" inputmode="decimal" style="padding:10px 12px;border-radius:14px" />
+            </div>
+            <div>
+              <div style="font-size:.78rem;color:#64748b;font-weight:900;margin-bottom:6px">${d.quantityLabel}</div>
+              <div class="quantity-control" style="margin-top:0" aria-label="${d.quantityLabel}">
+                <button class="qty-btn minus-btn" type="button" aria-label="${d.minusLabel}">−</button>
+                <span class="qty-number">${Number(item.quantity || 1)}</span>
+                <button class="qty-btn plus-btn" type="button" aria-label="${d.plusLabel}">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="item-total" data-item-total-id="${item.id}">${d.totalLabel}: ${formatMoney(itemTotal(item))}</div>
+        </div>
+        <button class="delete-btn" type="button" aria-label="${d.deleteLabel}">×</button>`;
+
+      article.querySelector(".item-name").textContent = item.name || "";
+      article.querySelector(".check").addEventListener("change", () => toggleItem(item.id));
+      article.querySelector(".minus-btn").addEventListener("click", () => changeQuantity(item.id, -1));
+      article.querySelector(".plus-btn").addEventListener("click", () => changeQuantity(item.id, 1));
+      article.querySelector(".delete-btn").addEventListener("click", () => deleteItem(item.id));
+      article.querySelector(".inline-price-input").addEventListener("input", (event) => window.changeItemPriceInline(item.id, event.target.value));
+      itemsList.appendChild(article);
+    });
   };
 
   renderHistory = function () {
@@ -93,5 +159,7 @@
     renderSelectedHistoryTotal();
   };
 
+  renderItems();
+  renderSummary();
   renderHistory();
 })();
