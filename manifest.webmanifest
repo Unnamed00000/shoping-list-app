@@ -1,8 +1,8 @@
 {
-  "name": "Shopping List App",
-  "short_name": "Shopping",
-  "description": "Multilingual shopping list with automatic currency selection, quantity tracking, and expense calculator.",
-  "start_url": "./?v=1.0.0",
+  "name": "Listora",
+  "short_name": "Listora",
+  "description": "Listora — your shopping list app with history, stores, prices, quantity tracking, and expense totals.",
+  "start_url": "./?v=1.3.8",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
