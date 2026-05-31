@@ -118,6 +118,7 @@
   const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk" };
   const t = () => text[state.language] || text.en;
   const savePrefs = () => localStorage.setItem(SETTINGS_KEY, JSON.stringify(prefs));
+  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.14";
 
   const css = document.createElement("style");
   css.textContent = `
@@ -132,12 +133,13 @@
   function beep(){if(!prefs.sound){stopBeep();return}const now=Date.now();if(now-lastBeepAt<120)return;lastBeepAt=now;stopBeep();try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C();const o=c.createOscillator();const g=c.createGain();audioContext=c;activeOscillator=o;o.type="sine";o.frequency.value=720;g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.03,c.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.055);o.connect(g);g.connect(c.destination);o.start();beepTimer=setTimeout(stopBeep,90)}catch(e){stopBeep()}}
   document.addEventListener("click",e=>{const button=e.target.closest("button");if(!button)return;if(prefs.vibration&&navigator.vibrate)navigator.vibrate(15);if(button.id!=="soundSwitch")beep()},true);
 
-  async function shareApp(){if(navigator.share){try{await navigator.share({title:"Shopping List App",text:"Shopping List App",url:APP_URL})}catch(e){}}else if(navigator.clipboard){await navigator.clipboard.writeText(APP_URL);note(t().copied)}}
+  async function shareApp(){if(navigator.share){try{await navigator.share({title:"Listora",text:"Listora",url:APP_URL})}catch(e){}}else if(navigator.clipboard){await navigator.clipboard.writeText(APP_URL);note(t().copied)}}
   function installGuide(){const x=t();note(`${x.installTitle}: ${x.install1} ${x.install2} ${x.install3} ${x.install4}`)}
 
   function renderSettings(){
     const sheet=settingsPanel?.querySelector(".settings-sheet"); if(!sheet)return; const x=t();
     sheet.innerHTML=`<div class="settings-head"><h2>${x.settings}</h2><button id="closeSettingsBtn" class="close-btn" type="button">×</button></div><div class="settings-block"><div class="settings-title-small">📲 ${x.installShare}</div><button id="installGuideBtn" class="settings-action" type="button">📖 ${x.installGuide}</button><button id="shareAppBtn" class="settings-action" type="button">📤 ${x.shareApp}</button></div><div class="settings-block"><div class="settings-title-small">🌍 ${x.language}</div><div class="language-picker"><button id="languageCurrent" class="language-current" type="button"><span>${names[state.language]}</span><span>⌄</span></button><div id="languageMenu" class="language-menu">${Object.entries(names).map(([k,v])=>`<button class="language-choice" data-lang="${k}" type="button">${v}</button>`).join("")}</div></div></div><div class="settings-block"><div class="settings-title-small">🔊 ${x.soundVibration}</div><div class="settings-row2"><strong>${x.sound}</strong><button id="soundSwitch" class="switch-pill ${prefs.sound?"on":""}" type="button"></button></div><div class="settings-row2"><strong>${x.vibration}</strong><button id="vibrationSwitch" class="switch-pill ${prefs.vibration?"on":""}" type="button"></button></div></div><div class="settings-block"><div class="settings-title-small">🎨 ${x.theme}</div><button id="themeSwitch" class="settings-action" type="button"><div class="theme-slider"><span>☀️ ${x.light}</span><div class="theme-track ${prefs.theme==="dark"?"dark":""}"><span class="theme-knob"></span></div><span>${x.dark} 🌙</span></div></button></div><div class="settings-block"><div class="settings-title-small">✉️ ${x.feedback}</div><p style="margin:0;color:var(--muted);line-height:1.45">${x.feedbackBody}</p><p style="margin:0"><strong>${x.contacts}</strong> ${x.comingSoon}</p></div><div class="settings-block"><div class="settings-title-small">ℹ️ ${x.about}</div><div class="about-center"><strong>Shopping List App</strong><span>${x.version}: v1.3.8</span><span>${x.developer}: Adam Margoev 2026</span></div></div><div id="settingsNote" class="settings-note"></div>`;
+    const about=sheet.querySelector(".about-center");if(about)about.innerHTML=`<strong>Listora</strong><span>${x.version}: ${getAppVersion()}</span><span>${x.developer}: Adam Margoev 2026</span>`;
     document.getElementById("closeSettingsBtn").onclick=closeSettings;
     document.getElementById("installGuideBtn").onclick=installGuide;
     document.getElementById("shareAppBtn").onclick=shareApp;

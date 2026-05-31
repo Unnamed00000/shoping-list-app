@@ -130,13 +130,11 @@
     if (!about) return;
 
     const strong = about.querySelector("strong");
-    if (strong) strong.textContent = "Listora";
+    if (strong && strong.textContent !== "Listora") strong.textContent = "Listora";
 
     about.querySelectorAll("span").forEach((span) => {
-      span.textContent = span.textContent
-        .replace("v1.3.8", "v1.4.2")
-        .replace("v1.4.1", "v1.4.2")
-        .replace("Shopping List App", "Listora");
+      const nextText = span.textContent.replace("Shopping List App", "Listora");
+      if (span.textContent !== nextText) span.textContent = nextText;
     });
   }
 

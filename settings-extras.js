@@ -4,7 +4,11 @@
 
   function getFooterVersion() {
     const footerLines = document.querySelectorAll(".app-footer p");
-    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.13";
+    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.14";
+  }
+
+  function setTextIfChanged(element, text) {
+    if (element && element.textContent !== text) element.textContent = text;
   }
 
   function applyListoraSettingsFix() {
@@ -14,12 +18,13 @@
     const about = sheet.querySelector(".about-center");
     if (about) {
       const strong = about.querySelector("strong");
-      if (strong) strong.textContent = APP_NAME;
+      setTextIfChanged(strong, APP_NAME);
 
       about.querySelectorAll("span").forEach((span) => {
-        span.textContent = span.textContent
+        const nextText = span.textContent
           .replace("Shopping List App", APP_NAME)
           .replace(/v\d+\.\d+\.\d+/g, getFooterVersion());
+        setTextIfChanged(span, nextText);
       });
     }
 
