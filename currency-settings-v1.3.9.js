@@ -11,9 +11,7 @@
 
   if (!localStorage.getItem(CURRENCY_KEY)) localStorage.setItem(CURRENCY_KEY, 'DKK');
 
-  function getCurrency() {
-    return currencyOptions[localStorage.getItem(CURRENCY_KEY)] || currencyOptions.DKK;
-  }
+  function getCurrency() { return currencyOptions[localStorage.getItem(CURRENCY_KEY)] || currencyOptions.DKK; }
 
   function formatByCurrency(value) {
     const c = getCurrency();
@@ -28,8 +26,7 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    html,body{max-width:100%;overflow-x:hidden!important;overscroll-behavior:none!important;overscroll-behavior-y:none!important;touch-action:pan-y!important}
-    body{position:relative!important}
+    html,body{max-width:100%;overflow-x:hidden!important;overscroll-behavior-x:none!important;overscroll-behavior-y:contain!important;touch-action:auto!important}
     .app,.topbar,.app-footer,.settings-panel,.settings-sheet{max-width:100%;overflow-x:hidden!important}
     .listora-language-currency-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end}
     .listora-mini-label{display:block;margin:0 0 7px;color:var(--muted);font-size:.78rem;font-weight:900}
@@ -41,12 +38,12 @@
   document.head.appendChild(style);
 
   let startY = 0;
-  document.addEventListener('touchstart', e => { if (e.touches && e.touches.length) startY = e.touches[0].clientY; }, { passive: false });
+  document.addEventListener('touchstart', e => { if (e.touches && e.touches.length) startY = e.touches[0].clientY; }, { passive: true });
   document.addEventListener('touchmove', e => {
     const y = e.touches && e.touches.length ? e.touches[0].clientY : 0;
-    const pullingDown = y > startY;
+    const diff = y - startY;
     const atTop = (window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0) <= 0;
-    if (atTop && pullingDown) e.preventDefault();
+    if (atTop && diff > 65) e.preventDefault();
   }, { passive: false });
 
   function currentLang(){return (window.state&&state.language)||localStorage.getItem('shoppingLanguage')||'en'}
