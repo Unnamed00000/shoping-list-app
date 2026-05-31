@@ -1,7 +1,11 @@
 (() => {
   const APP_NAME = "Listora";
-  const APP_VERSION = "v1.4.6";
   const APP_URL = "https://unnamed00000.github.io/shoping-list-app/";
+
+  function getFooterVersion() {
+    const footerLines = document.querySelectorAll(".app-footer p");
+    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.7";
+  }
 
   function applyListoraSettingsFix() {
     const sheet = document.querySelector("#settingsPanel .settings-sheet");
@@ -15,7 +19,7 @@
       about.querySelectorAll("span").forEach((span) => {
         span.textContent = span.textContent
           .replace("Shopping List App", APP_NAME)
-          .replace(/v\d+\.\d+\.\d+/g, APP_VERSION);
+          .replace(/v\d+\.\d+\.\d+/g, getFooterVersion());
       });
     }
 
