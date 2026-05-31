@@ -6,7 +6,7 @@
   <title>Shopping List App</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css?v=1.2.1" />
+  <link rel="stylesheet" href="style.css?v=1.3.0" />
 </head>
 <body>
   <header class="topbar">
@@ -54,6 +54,28 @@
       </div>
     </section>
 
+    <section class="card purchase-card">
+      <h2 data-i18n="purchaseTitle">Complete purchase</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label for="storeName" data-i18n="storeName">Store</label>
+          <input id="storeName" type="text" list="storesList" autocomplete="off" placeholder="Lidl" />
+          <datalist id="storesList">
+            <option value="Lidl"></option>
+            <option value="Netto"></option>
+            <option value="Bilka"></option>
+            <option value="Rema 1000"></option>
+            <option value="Føtex"></option>
+          </datalist>
+        </div>
+        <div class="field">
+          <label for="purchaseDate" data-i18n="purchaseDate">Date</label>
+          <input id="purchaseDate" type="date" />
+        </div>
+      </div>
+      <button id="savePurchaseBtn" class="secondary-btn" type="button" data-i18n="savePurchase">Save purchase to history</button>
+    </section>
+
     <section class="list-section">
       <div class="section-head">
         <h2 data-i18n="listTitle">Products</h2>
@@ -65,7 +87,7 @@
   </main>
 
   <footer class="app-footer">
-    <p>Shopping List App v1.2.1</p>
+    <p>Shopping List App v1.3.0</p>
     <p>Developed by Adam Margoev</p>
   </footer>
 
@@ -82,13 +104,31 @@
         <button class="language-option" type="button" data-lang="ka">🇬🇪 ქართული</button>
         <button class="language-option" type="button" data-lang="da">🇩🇰 Dansk</button>
       </div>
+      <button id="openHistoryBtn" class="wide-settings-btn" type="button" data-i18n="openHistory">Purchase history</button>
       <div class="about-box">
-        <strong>Shopping List App v1.2.1</strong>
+        <strong>Shopping List App v1.3.0</strong>
         <span>Developed by Adam Margoev</span>
       </div>
     </div>
   </div>
 
-  <script src="script.js?v=1.2.1"></script>
+  <div id="historyPanel" class="settings-panel" aria-hidden="true">
+    <div class="settings-sheet history-sheet">
+      <div class="settings-head">
+        <h2 data-i18n="historyTitle">Purchase history</h2>
+        <button id="closeHistoryBtn" class="close-btn" type="button" aria-label="Close">×</button>
+      </div>
+      <div id="historyEmpty" class="empty" data-i18n="historyEmpty">No saved purchases yet.</div>
+      <div id="historyList" class="history-list"></div>
+      <div class="history-total">
+        <span data-i18n="selectedTotal">Selected total</span>
+        <strong id="selectedHistoryTotal">0</strong>
+      </div>
+    </div>
+  </div>
+
+  <div id="printArea" class="print-area"></div>
+
+  <script src="script.js?v=1.3.0"></script>
 </body>
 </html>
