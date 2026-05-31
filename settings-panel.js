@@ -118,7 +118,7 @@
   const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk" };
   const t = () => text[state.language] || text.en;
   const savePrefs = () => localStorage.setItem(SETTINGS_KEY, JSON.stringify(prefs));
-  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.15";
+  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.16";
 
   const css = document.createElement("style");
   css.textContent = `

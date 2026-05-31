@@ -100,8 +100,8 @@
                 <button class="qty-btn plus-btn" type="button" aria-label="${d.plusLabel}">+</button>
               </div>
             </div>
+            <div class="item-total item-total-inline" data-item-total-id="${item.id}">${d.totalLabel}: ${formatMoney(itemTotal(item))}</div>
           </div>
-          <div class="item-total" data-item-total-id="${item.id}">${d.totalLabel}: ${formatMoney(itemTotal(item))}</div>
         </div>
         <button class="delete-btn" type="button" aria-label="${d.deleteLabel}">×</button>`;
 
