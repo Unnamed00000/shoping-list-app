@@ -31,6 +31,8 @@
 
   const style = document.createElement('style');
   style.textContent = `
+    html,body{max-width:100%;overflow-x:hidden;overscroll-behavior-x:none;touch-action:pan-y!important}
+    .app,.topbar,.app-footer,.settings-panel,.settings-sheet{max-width:100%;overflow-x:hidden}
     .listora-language-currency-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end}
     .listora-mini-label{display:block;margin:0 0 7px;color:var(--muted);font-size:.78rem;font-weight:900}
     .listora-currency-select{width:100%;min-height:48px;border:1px solid var(--border);border-radius:16px;padding:11px 12px;background:#fff;color:#0f172a;font-weight:900}
@@ -46,10 +48,10 @@
 
   function languageWord() {
     const lang = currentLang();
-    if (lang === 'ru') return 'Язык';
-    if (lang === 'da') return 'Sprog';
-    if (lang === 'ka') return 'ენა';
-    return 'Language';
+    if (lang === 'ru') return 'Язык приложения';
+    if (lang === 'da') return 'App-sprog';
+    if (lang === 'ka') return 'აპის ენა';
+    return 'App language';
   }
 
   function currencyWord() {
@@ -60,17 +62,34 @@
     return 'Currency';
   }
 
+  function titleWord() {
+    const lang = currentLang();
+    if (lang === 'ru') return 'Язык и валюта';
+    if (lang === 'da') return 'Sprog og valuta';
+    if (lang === 'ka') return 'ენა და ვალუტა';
+    return 'Language and currency';
+  }
+
   function enhanceSettingsCurrency() {
     const sheet = document.querySelector('#settingsPanel .settings-sheet');
     if (!sheet) return;
+
     const languagePicker = sheet.querySelector('.language-picker');
-    if (!languagePicker || sheet.dataset.currencyReady === '1') return;
+    if (!languagePicker) return;
+
     const block = languagePicker.closest('.settings-block');
     if (!block) return;
-    sheet.dataset.currencyReady = '1';
 
     const title = block.querySelector('.settings-title-small');
-    if (title) title.innerHTML = `🌍 ${languageWord()} и ${currencyWord()}`;
+    if (title) title.innerHTML = `🌍 ${titleWord()}`;
+
+    const oldRow = block.querySelector('.listora-language-currency-row');
+    if (oldRow && oldRow.contains(languagePicker) && block.querySelector('#listoraCurrencySelect')) {
+      const select = block.querySelector('#listoraCurrencySelect');
+      select.value = localStorage.getItem(CURRENCY_KEY) || 'DKK';
+      return;
+    }
+    if (oldRow) oldRow.remove();
 
     const row = document.createElement('div');
     row.className = 'listora-language-currency-row';
@@ -93,6 +112,7 @@
         localStorage.setItem(CURRENCY_KEY, select.value);
         try { if (typeof render === 'function') render(); } catch(e) {}
         try { if (typeof renderHistory === 'function') renderHistory(); } catch(e) {}
+        setTimeout(enhanceSettingsCurrency, 80);
       });
     }
   }
@@ -100,21 +120,31 @@
   document.addEventListener('click', (event) => {
     if (event.target && (event.target.id === 'settingsBtn' || event.target.closest('#settingsBtn'))) {
       setTimeout(enhanceSettingsCurrency, 80);
+      setTimeout(enhanceSettingsCurrency, 220);
     }
   }, true);
 
   const oldOpenSettings = window.openSettings || (typeof openSettings === 'function' ? openSettings : null);
-  if (oldOpenSettings) {
+  if (oldOpenSettings && !window.__listoraCurrencyOpenSettingsWrapped) {
+    window.__listoraCurrencyOpenSettingsWrapped = true;
     try {
       openSettings = function() {
         oldOpenSettings();
         setTimeout(enhanceSettingsCurrency, 80);
+        setTimeout(enhanceSettingsCurrency, 220);
       };
       window.openSettings = openSettings;
       const settingsBtn = document.getElementById('settingsBtn');
       if (settingsBtn) settingsBtn.onclick = openSettings;
     } catch(e) {}
   }
+
+  const observer = new MutationObserver(() => {
+    const panel = document.getElementById('settingsPanel');
+    if (panel && panel.classList.contains('open')) setTimeout(enhanceSettingsCurrency, 50);
+  });
+  const panel = document.getElementById('settingsPanel');
+  if (panel) observer.observe(panel, { childList: true, subtree: true });
 
   setTimeout(() => { try { if (typeof render === 'function') render(); } catch(e) {} }, 120);
 })();
