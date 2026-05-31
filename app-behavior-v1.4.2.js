@@ -60,44 +60,4 @@
   `;
 
   document.head.appendChild(style);
-
-  let startY = 0;
-
-  function isAtPageTop() {
-    return (
-      window.scrollY ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0
-    ) <= 0;
-  }
-
-  function insideModal(target) {
-    return target && target.closest && target.closest(".settings-sheet, .history-sheet");
-  }
-
-  document.addEventListener(
-    "touchstart",
-    (event) => {
-      if (!event.touches || event.touches.length !== 1) return;
-      startY = event.touches[0].clientY;
-    },
-    { passive: true }
-  );
-
-  document.addEventListener(
-    "touchmove",
-    (event) => {
-      if (!event.touches || event.touches.length !== 1) return;
-      if (insideModal(event.target)) return;
-
-      const currentY = event.touches[0].clientY;
-      const pullingDown = currentY > startY;
-
-      if (isAtPageTop() && pullingDown) {
-        event.preventDefault();
-      }
-    },
-    { passive: false }
-  );
 })();
