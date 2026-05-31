@@ -6,27 +6,18 @@
   <title>Shopping List App</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css?v=1.1.2" />
+  <link rel="stylesheet" href="style.css?v=1.2.0" />
 </head>
 <body>
-  <main class="app">
-    <header class="hero">
-      <div>
-        <p class="eyebrow" data-i18n="eyebrow">Smart shopping</p>
-        <h1 data-i18n="title">Shopping List</h1>
-        <p class="subtitle" data-i18n="subtitle">Track products, quantity, prices and total expenses.</p>
-      </div>
-      <div class="language-box">
-        <label for="language" data-i18n="languageLabel">Language</label>
-        <select id="language">
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="ka">ქართული</option>
-          <option value="da">Dansk</option>
-        </select>
-      </div>
-    </header>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow">Smart shopping</p>
+      <h1 data-i18n="title">Shopping List</h1>
+    </div>
+    <button id="settingsBtn" class="settings-btn" type="button" aria-label="Settings">⚙️</button>
+  </header>
 
+  <main class="app">
     <section class="card form-card">
       <h2 data-i18n="addTitle">Add product</h2>
       <form id="itemForm">
@@ -50,11 +41,11 @@
 
     <section class="summary">
       <div class="summary-card">
-        <span data-i18n="totalItems">Total items</span>
+        <span data-i18n="totalItems">Total quantity</span>
         <strong id="totalItems">0</strong>
       </div>
       <div class="summary-card">
-        <span data-i18n="boughtItems">Bought</span>
+        <span data-i18n="boughtItems">Bought quantity</span>
         <strong id="boughtItems">0</strong>
       </div>
       <div class="summary-card total-money">
@@ -71,13 +62,33 @@
       <div id="emptyState" class="empty" data-i18n="empty">No products yet.</div>
       <div id="itemsList" class="items-list"></div>
     </section>
-
-    <footer class="app-footer">
-      <p>Shopping List App v1.1.2</p>
-      <p>Developed by Adam Margoev</p>
-    </footer>
   </main>
 
-  <script src="script.js?v=1.1.2"></script>
+  <footer class="app-footer">
+    <p>Shopping List App v1.2.0</p>
+    <p>Developed by Adam Margoev</p>
+  </footer>
+
+  <div id="settingsPanel" class="settings-panel" aria-hidden="true">
+    <div class="settings-sheet">
+      <div class="settings-head">
+        <h2 data-i18n="settingsTitle">Settings</h2>
+        <button id="closeSettingsBtn" class="close-btn" type="button" aria-label="Close">×</button>
+      </div>
+      <p class="settings-label" data-i18n="languageLabel">Language</p>
+      <div class="language-options">
+        <button class="language-option" type="button" data-lang="en">🇬🇧 English</button>
+        <button class="language-option" type="button" data-lang="ru">🇷🇺 Русский</button>
+        <button class="language-option" type="button" data-lang="ka">🇬🇪 ქართული</button>
+        <button class="language-option" type="button" data-lang="da">🇩🇰 Dansk</button>
+      </div>
+      <div class="about-box">
+        <strong>Shopping List App v1.2.0</strong>
+        <span>Developed by Adam Margoev</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=1.2.0"></script>
 </body>
 </html>
