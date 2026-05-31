@@ -139,7 +139,8 @@ input:focus {
 
 .primary-btn,
 .ghost-btn,
-.delete-btn {
+.delete-btn,
+.qty-btn {
   border: 0;
   border-radius: 16px;
   cursor: pointer;
@@ -255,6 +256,41 @@ input:focus {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 650;
+}
+
+.quantity-control {
+  width: fit-content;
+  margin-top: 11px;
+  display: grid;
+  grid-template-columns: 42px minmax(52px, auto) 42px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.qty-btn {
+  width: 42px;
+  height: 38px;
+  border-radius: 0;
+  background: #e2e8f0;
+  color: var(--text);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.qty-btn:active {
+  background: var(--accent);
+  color: white;
+}
+
+.qty-number {
+  min-width: 52px;
+  padding: 0 12px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 900;
 }
 
 .item-total {
