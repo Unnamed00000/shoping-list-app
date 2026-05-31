@@ -8,14 +8,14 @@
   <meta http-equiv="Expires" content="0" />
   <title>Listora</title>
   <meta name="theme-color" content="#0f172a" />
-  <link rel="manifest" href="manifest.webmanifest?v=1.4.5-force" />
-  <link rel="stylesheet" href="style.css?v=1.4.16-item-layout" />
+  <link rel="manifest" href="manifest.webmanifest?v=1.4.17-purchase-help" />
+  <link rel="stylesheet" href="style.css?v=1.4.17-purchase-help" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand-box">
       <h1 class="brand-title">LISTORA</h1>
-      <p class="brand-subtitle" data-i18n="title">Your Shopping List App</p>
+      <p class="brand-subtitle" data-i18n="title">Smart Shopping List</p>
     </div>
     <button id="settingsBtn" class="settings-btn" type="button" aria-label="Settings">⚙️</button>
   </header>
@@ -46,7 +46,10 @@
     </section>
 
     <section class="card purchase-card">
-      <h2 data-i18n="purchaseTitle">Complete purchase</h2>
+      <div class="purchase-title-row">
+        <h2 data-i18n="purchaseTitle">Complete purchase</h2>
+        <button id="purchaseHelpBtn" class="help-btn" type="button" aria-label="Purchase help">?</button>
+      </div>
       <div class="grid-2">
         <div class="field"><label for="storeName" data-i18n="storeName">Store</label><input id="storeName" type="text" list="storesList" autocomplete="off" placeholder="Lidl" /><datalist id="storesList"></datalist></div>
         <div class="field"><label for="purchaseDate" data-i18n="purchaseDate">Date</label><input id="purchaseDate" type="date" /></div>
@@ -57,7 +60,7 @@
     </section>
   </main>
 
-  <footer class="app-footer"><p>Listora</p><p>v1.4.16</p><p>Adam Margoev</p></footer>
+  <footer class="app-footer"><p>Listora</p><p>v1.4.17</p><p>Adam Margoev</p></footer>
 
   <div id="settingsPanel" class="settings-panel" aria-hidden="true"><div class="settings-sheet"></div></div>
 
@@ -80,11 +83,12 @@
       navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.update()));
     }
   </script>
-  <script src="app-core.js?v=1.4.16-item-layout"></script>
+  <script src="app-core.js?v=1.4.17-purchase-help"></script>
   <script src="shopping-list-rendering.js?v=1.4.16-item-layout"></script>
-  <script src="settings-panel.js?v=1.4.16-item-layout"></script>
+  <script src="settings-panel.js?v=1.4.17-purchase-help"></script>
   <script src="currency-settings.js?v=1.4.14-stable-about"></script>
   <script src="app-behavior.js?v=1.4.13-capture-scroll"></script>
-  <script src="settings-extras.js?v=1.4.16-item-layout"></script>
+  <script src="settings-extras.js?v=1.4.17-purchase-help"></script>
+  <script src="purchase-help.js?v=1.4.17-purchase-help"></script>
 </body>
 </html>

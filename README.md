@@ -11,4 +11,5 @@ Multilingual shopping list with automatic currency selection, quantity tracking,
 - `currency-settings.js` - currency selection and money formatting.
 - `app-behavior.js` - viewport, scroll, overscroll, and zoom/pinch prevention rules.
 - `settings-extras.js` - Listora branding in settings, share-app text, synced About version, and install-guide image viewer.
+- `purchase-help.js` - help popover for the purchase completion section.
 - `manifest.webmanifest` - PWA install metadata.
