@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping List App</title>
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">Smart shopping</p>
+        <h1 data-i18n="title">Shopping List</h1>
+        <p class="subtitle" data-i18n="subtitle">Track products, quantity, prices and total expenses.</p>
+      </div>
+      <div class="language-box">
+        <label for="language" data-i18n="languageLabel">Language</label>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="ka">ქართული</option>
+          <option value="da">Dansk</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="card form-card">
+      <h2 data-i18n="addTitle">Add product</h2>
+      <form id="itemForm">
+        <div class="field">
+          <label for="name" data-i18n="productName">Product</label>
+          <input id="name" type="text" autocomplete="off" required />
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="price" data-i18n="priceOne">Price for 1 item</label>
+            <input id="price" type="number" min="0" step="0.01" required />
+          </div>
+          <div class="field">
+            <label for="quantity" data-i18n="quantity">Quantity</label>
+            <input id="quantity" type="number" min="1" step="1" value="1" required />
+          </div>
+        </div>
+        <button type="submit" class="primary-btn" data-i18n="addButton">+ Add</button>
+      </form>
+    </section>
+
+    <section class="summary">
+      <div class="summary-card">
+        <span data-i18n="totalItems">Total items</span>
+        <strong id="totalItems">0</strong>
+      </div>
+      <div class="summary-card">
+        <span data-i18n="boughtItems">Bought</span>
+        <strong id="boughtItems">0</strong>
+      </div>
+      <div class="summary-card total-money">
+        <span data-i18n="spent">Spent</span>
+        <strong id="spentMoney">0</strong>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <div class="section-head">
+        <h2 data-i18n="listTitle">Products</h2>
+        <button id="clearBtn" class="ghost-btn" data-i18n="clear">Clear</button>
+      </div>
+      <div id="emptyState" class="empty" data-i18n="empty">No products yet.</div>
+      <div id="itemsList" class="items-list"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
