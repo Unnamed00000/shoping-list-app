@@ -87,14 +87,14 @@
         <input class="check" type="checkbox" ${item.done ? "checked" : ""} aria-label="${d.boughtItems}" />
         <div>
           <h3 class="item-name"></h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;align-items:end">
+          <div class="item-edit-row">
             <div>
-              <div style="font-size:.78rem;color:#64748b;font-weight:900;margin-bottom:6px">${priceText()}</div>
-              <input class="inline-price-input" type="number" min="0" step="0.01" value="${priceValue}" placeholder="0" inputmode="decimal" style="padding:10px 12px;border-radius:14px" />
+              <div class="item-edit-label">${priceText()}</div>
+              <input class="inline-price-input" type="number" min="0" step="0.01" value="${priceValue}" placeholder="0" inputmode="decimal" />
             </div>
             <div>
-              <div style="font-size:.78rem;color:#64748b;font-weight:900;margin-bottom:6px">${d.quantityLabel}</div>
-              <div class="quantity-control" style="margin-top:0" aria-label="${d.quantityLabel}">
+              <div class="item-edit-label">${d.quantityLabel}</div>
+              <div class="quantity-control" aria-label="${d.quantityLabel}">
                 <button class="qty-btn minus-btn" type="button" aria-label="${d.minusLabel}">−</button>
                 <span class="qty-number">${Number(item.quantity || 1)}</span>
                 <button class="qty-btn plus-btn" type="button" aria-label="${d.plusLabel}">+</button>
