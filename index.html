@@ -6,14 +6,17 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Shopping List App</title>
+  <title>Listora</title>
   <meta name="theme-color" content="#0f172a" />
-  <link rel="manifest" href="manifest.webmanifest?v=1.3.7" />
-  <link rel="stylesheet" href="style.css?v=1.3.7-20260531-price" />
+  <link rel="manifest" href="manifest.webmanifest?v=1.3.8-listora" />
+  <link rel="stylesheet" href="style.css?v=1.3.8-listora" />
 </head>
 <body>
   <header class="topbar">
-    <div><p class="eyebrow" data-i18n="eyebrow">Smart shopping</p><h1 data-i18n="title">Shopping List</h1></div>
+    <div class="brand-box">
+      <h1 class="brand-title">LISTORA</h1>
+      <p class="brand-subtitle" data-i18n="title">Your Shopping List App</p>
+    </div>
     <button id="settingsBtn" class="settings-btn" type="button" aria-label="Settings">⚙️</button>
   </header>
 
@@ -54,14 +57,14 @@
     </section>
   </main>
 
-  <footer class="app-footer"><p>Shopping List App v1.3.7</p><p>Developed by Adam Margoev</p></footer>
+  <footer class="app-footer"><p>Listora</p><p>v1.3.8</p><p>Adam Margoev</p></footer>
 
   <div id="settingsPanel" class="settings-panel" aria-hidden="true">
     <div class="settings-sheet">
       <div class="settings-head"><h2 data-i18n="settingsTitle">Settings</h2><button id="closeSettingsBtn" class="close-btn" type="button" aria-label="Close">×</button></div>
       <p class="settings-label" data-i18n="languageLabel">Language</p>
       <div class="language-options"><button class="language-option" type="button" data-lang="en">🇬🇧 English</button><button class="language-option" type="button" data-lang="ru">🇷🇺 Русский</button><button class="language-option" type="button" data-lang="ka">🇬🇪 ქართული</button><button class="language-option" type="button" data-lang="da">🇩🇰 Dansk</button></div>
-      <div class="about-box"><strong>Shopping List App v1.3.7</strong><span>Developed by Adam Margoev</span></div>
+      <div class="about-box"><strong>Listora</strong><span>v1.3.8</span><span>Adam Margoev 2026</span></div>
     </div>
   </div>
 
@@ -81,7 +84,8 @@
       navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.update()));
     }
   </script>
-  <script src="script.js?v=1.3.7-20260531-price"></script>
-  <script src="patch-v1.3.6.js?v=1.3.7-20260531-price-3"></script>
+  <script src="script.js?v=1.3.8-listora"></script>
+  <script src="patch-v1.3.6.js?v=1.3.8-listora"></script>
+  <script src="settings-v1.3.8.js?v=1.3.8-listora-force-1"></script>
 </body>
 </html>
