@@ -1,105 +1,78 @@
 (() => {
-  const IMAGE_SRC = "images/instruktion.png";
+  const APP_NAME = "Listora";
+  const APP_URL = "https://unnamed00000.github.io/shoping-list-app/";
 
-  function ensureStyles() {
-    if (document.getElementById("installGuideModalStyles")) return;
-
-    const style = document.createElement("style");
-    style.id = "installGuideModalStyles";
-    style.textContent = `
-      #installGuideModal {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, .94);
-        padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
-        overflow: hidden;
-        touch-action: none;
-      }
-
-      #installGuideModal.open {
-        display: flex;
-      }
-
-      #installGuideViewport {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        touch-action: none;
-      }
-
-      #installGuideImage {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 20px 70px rgba(0, 0, 0, .55);
-        transform: translate3d(0, 0, 0) scale(1);
-        transform-origin: center center;
-        transition: transform .08s linear;
-        user-select: none;
-        -webkit-user-drag: none;
-        touch-action: none;
-      }
-
-      #installGuideClose {
-        position: absolute;
-        top: max(12px, env(safe-area-inset-top));
-        right: max(12px, env(safe-area-inset-right));
-        z-index: 2;
-        width: 48px;
-        height: 48px;
-        border: 0;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, .95);
-        color: #0f172a;
-        font-size: 30px;
-        line-height: 1;
-        font-weight: 900;
-        cursor: pointer;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-        touch-action: manipulation;
-      }
-
-      #installGuideZoomControls {
-        position: absolute;
-        left: 12px;
-        bottom: max(12px, env(safe-area-inset-bottom));
-        z-index: 2;
-        display: flex;
-        gap: 8px;
-      }
-
-      #installGuideZoomControls button {
-        min-width: 46px;
-        height: 46px;
-        border: 0;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, .95);
-        color: #0f172a;
-        font-size: 24px;
-        font-weight: 900;
-        cursor: pointer;
-        touch-action: manipulation;
-      }
-
-      #installGuideZoomReset {
-        padding: 0 12px;
-        font-size: 17px !important;
-      }
-    `;
-    document.head.appendChild(style);
+  function getFooterVersion() {
+    const footerLines = document.querySelectorAll(".app-footer p");
+    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.11";
   }
 
-  function openGuide() {
-    ensureStyles();
+  function applyListoraSettingsFix() {
+    const sheet = document.querySelector("#settingsPanel .settings-sheet");
+    if (!sheet) return;
 
+    const about = sheet.querySelector(".about-center");
+    if (about) {
+      const strong = about.querySelector("strong");
+      if (strong) strong.textContent = APP_NAME;
+
+      about.querySelectorAll("span").forEach((span) => {
+        span.textContent = span.textContent
+          .replace("Shopping List App", APP_NAME)
+          .replace(/v\d+\.\d+\.\d+/g, getFooterVersion());
+      });
+    }
+
+    const shareBtn = document.getElementById("shareAppBtn");
+    if (shareBtn && !shareBtn.dataset.listoraShareFixed) {
+      shareBtn.dataset.listoraShareFixed = "1";
+      shareBtn.onclick = async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: APP_NAME,
+              text: APP_NAME,
+              url: APP_URL
+            });
+          } catch (e) {}
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(APP_URL);
+          const note = document.getElementById("settingsNote");
+          if (note) {
+            note.textContent = "Ссылка скопирована";
+            note.style.display = "block";
+            setTimeout(() => (note.style.display = "none"), 3000);
+          }
+        }
+      };
+    }
+  }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      if (event.target && (event.target.id === "settingsBtn" || event.target.closest("#settingsBtn"))) {
+        setTimeout(applyListoraSettingsFix, 80);
+        setTimeout(applyListoraSettingsFix, 250);
+      }
+    },
+    true
+  );
+
+  const panel = document.getElementById("settingsPanel");
+  if (panel) {
+    new MutationObserver(() => {
+      if (panel.classList.contains("open")) setTimeout(applyListoraSettingsFix, 50);
+    }).observe(panel, { childList: true, subtree: true, attributes: true });
+  }
+
+  setTimeout(applyListoraSettingsFix, 300);
+})();
+
+(() => {
+  const IMAGE_SRC = "images/instruktion.png";
+
+  function openGuide() {
     let modal = document.getElementById("installGuideModal");
     if (!modal) {
       modal = document.createElement("div");

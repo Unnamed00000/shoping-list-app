@@ -9,7 +9,7 @@
   <title>Listora</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="manifest" href="manifest.webmanifest?v=1.4.5-force" />
-  <link rel="stylesheet" href="style.css?v=1.4.5-force" />
+  <link rel="stylesheet" href="style.css?v=1.4.11-structure" />
 </head>
 <body>
   <header class="topbar">
@@ -57,7 +57,7 @@
     </section>
   </main>
 
-  <footer class="app-footer"><p>Listora</p><p>v1.4.10</p><p>Adam Margoev</p></footer>
+  <footer class="app-footer"><p>Listora</p><p>v1.4.11</p><p>Adam Margoev</p></footer>
 
   <div id="settingsPanel" class="settings-panel" aria-hidden="true"><div class="settings-sheet"></div></div>
 
@@ -80,14 +80,11 @@
       navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.update()));
     }
   </script>
-  <script src="script.js?v=1.4.5-force"></script>
-  <script src="patch-v1.3.6.js?v=1.4.5-force"></script>
-  <script src="settings-v1.3.8.js?v=1.4.8-sound-stop"></script>
-  <script src="contrast-fix-v1.3.8.js?v=1.4.5-force"></script>
-  <script src="history-open-fix-v1.3.8.js?v=1.4.5-force"></script>
-  <script src="currency-settings-v1.3.9.js?v=1.4.5-force"></script>
-  <script src="app-behavior-v1.4.2.js?v=1.4.10-full-page-scroll"></script>
-  <script src="listora-settings-fix-v1.4.6.js?v=1.4.10-settings-sync"></script>
-  <script src="install-guide-fix-v1.4.1.js?v=1.4.7-image-zoom"></script>
+  <script src="app-core.js?v=1.4.11-structure"></script>
+  <script src="shopping-list-rendering.js?v=1.4.11-structure"></script>
+  <script src="settings-panel.js?v=1.4.11-structure"></script>
+  <script src="currency-settings.js?v=1.4.11-structure"></script>
+  <script src="app-behavior.js?v=1.4.11-structure"></script>
+  <script src="settings-extras.js?v=1.4.11-structure"></script>
 </body>
 </html>
