@@ -1,4 +1,4 @@
-/* Listora v1.4.8 — mobile horizontal layout fix */
+/* Listora v1.4.9 — mobile horizontal layout fix */
 
 /* Add product: price + quantity always side by side */
 .grid-2 {
@@ -50,12 +50,12 @@
 /* Product edit row: price / quantity / total always side by side */
 .item-edit-row {
   display: grid !important;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) minmax(0, .8fr) !important;
-  gap: 8px !important;
+  grid-template-columns: minmax(66px, .8fr) minmax(116px, 1.1fr) minmax(88px, .95fr) !important;
+  gap: 7px !important;
   align-items: end !important;
   width: 100% !important;
   max-width: 100% !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 
 .item-edit-row > * {
@@ -84,16 +84,16 @@
   max-width: 100% !important;
   min-width: 0 !important;
   margin-top: 0 !important;
-  grid-template-columns: 28px minmax(0, 1fr) 28px !important;
-  gap: 3px !important;
+  grid-template-columns: 26px minmax(0, 1fr) 26px !important;
+  gap: 2px !important;
 }
 
 .item-edit-row .qty-btn {
-  width: 28px !important;
-  min-width: 28px !important;
+  width: 26px !important;
+  min-width: 26px !important;
   height: 40px !important;
   border-radius: 12px !important;
-  font-size: .95rem !important;
+  font-size: .9rem !important;
 }
 
 .item-edit-row .qty-number {
@@ -105,18 +105,21 @@
 
 .item-total-inline {
   grid-column: auto !important;
-  min-width: 0 !important;
+  min-width: 88px !important;
   min-height: 40px !important;
   margin-top: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  font-size: clamp(.62rem, 2.45vw, .86rem) !important;
-  line-height: 1.08 !important;
-  padding: 0 1px !important;
-  word-break: normal !important;
-  overflow-wrap: anywhere !important;
+  font-size: clamp(.72rem, 2.7vw, .92rem) !important;
+  font-weight: 950 !important;
+  line-height: 1.15 !important;
+  padding: 0 2px !important;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  overflow: visible !important;
 }
 
 @media (max-width: 430px) {
@@ -157,26 +160,8 @@
   }
 
   .item-edit-row {
-    grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr) minmax(0, .8fr) !important;
-    gap: 6px !important;
-  }
-
-  .item-edit-row .quantity-control {
-    grid-template-columns: 26px minmax(0, 1fr) 26px !important;
-    gap: 2px !important;
-  }
-
-  .item-edit-row .qty-btn {
-    width: 26px !important;
-    min-width: 26px !important;
-    font-size: .9rem !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .item-edit-row {
-    grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr) minmax(0, .75fr) !important;
-    gap: 4px !important;
+    grid-template-columns: minmax(58px, .75fr) minmax(108px, 1.1fr) minmax(82px, .95fr) !important;
+    gap: 5px !important;
   }
 
   .item-edit-row .quantity-control {
@@ -191,6 +176,30 @@
   }
 
   .item-total-inline {
-    font-size: .58rem !important;
+    min-width: 82px !important;
+    font-size: .76rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .item-edit-row {
+    grid-template-columns: minmax(54px, .7fr) minmax(100px, 1.15fr) minmax(74px, .9fr) !important;
+    gap: 4px !important;
+  }
+
+  .item-edit-row .quantity-control {
+    grid-template-columns: 22px minmax(0, 1fr) 22px !important;
+    gap: 2px !important;
+  }
+
+  .item-edit-row .qty-btn {
+    width: 22px !important;
+    min-width: 22px !important;
+    font-size: .82rem !important;
+  }
+
+  .item-total-inline {
+    min-width: 74px !important;
+    font-size: .68rem !important;
   }
 }
