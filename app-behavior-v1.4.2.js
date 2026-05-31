@@ -14,14 +14,25 @@
     body {
       max-width: 100%;
       width: 100%;
-      height: 100%;
       min-height: 100%;
       overflow-x: hidden !important;
-      overflow-y: hidden !important;
+      overflow-y: auto !important;
       overscroll-behavior-x: none;
       overscroll-behavior-y: none;
       -webkit-text-size-adjust: 100%;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .app::-webkit-scrollbar,
+    .settings-sheet::-webkit-scrollbar,
+    .history-sheet::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
     }
 
     body {
@@ -30,19 +41,11 @@
     }
 
     .app {
-      position: fixed;
-      top: var(--topbar-height);
-      right: 0;
-      bottom: var(--footer-height);
-      left: 0;
       max-width: 100%;
-      width: min(100%, 760px);
-      margin: 0 auto;
-      overflow-x: hidden !important;
-      overflow-y: auto !important;
+      overflow: visible !important;
       touch-action: pan-y;
-      overscroll-behavior-y: contain;
-      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     .card,
@@ -70,6 +73,8 @@
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     button,
@@ -84,10 +89,6 @@
   `;
 
   document.head.appendChild(style);
-
-  function getMainScroller() {
-    return document.querySelector(".app");
-  }
 
   document.addEventListener(
     "touchstart",
@@ -120,15 +121,6 @@
     event => {
       if (event.ctrlKey) {
         event.preventDefault();
-        return;
-      }
-
-      if (event.target.closest(".topbar, .app-footer")) {
-        const scroller = getMainScroller();
-        if (scroller) {
-          scroller.scrollTop += event.deltaY;
-          event.preventDefault();
-        }
       }
     },
     { passive: false }
