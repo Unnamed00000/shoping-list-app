@@ -74,45 +74,12 @@
 
   document.head.appendChild(style);
 
-  let touchStartY = 0;
-
-  function getScrollableElement(start) {
-    let element = start instanceof Element ? start : start && start.parentElement;
-
-    while (element && element !== document.body && element !== document.documentElement) {
-      const style = window.getComputedStyle(element);
-      const canScrollY = /(auto|scroll)/.test(style.overflowY);
-
-      if (canScrollY && element.scrollHeight > element.clientHeight) {
-        return element;
-      }
-
-      element = element.parentElement;
-    }
-
-    return document.scrollingElement || document.documentElement;
-  }
-
-  function shouldStopEdgeBounce(scroller, deltaY) {
-    const scrollTop = scroller.scrollTop;
-    const maxScrollTop = scroller.scrollHeight - scroller.clientHeight;
-
-    if (maxScrollTop <= 0) return true;
-    if (scrollTop <= 0 && deltaY > 0) return true;
-    if (scrollTop >= maxScrollTop - 1 && deltaY < 0) return true;
-
-    return false;
-  }
-
   document.addEventListener(
     "touchstart",
     event => {
       if (event.touches.length > 1) {
         event.preventDefault();
-        return;
       }
-
-      touchStartY = event.touches[0].clientY;
     },
     { passive: false }
   );
@@ -121,15 +88,6 @@
     "touchmove",
     event => {
       if (event.touches.length > 1) {
-        event.preventDefault();
-        return;
-      }
-
-      const currentY = event.touches[0].clientY;
-      const deltaY = currentY - touchStartY;
-      const scroller = getScrollableElement(event.target);
-
-      if (shouldStopEdgeBounce(scroller, deltaY)) {
         event.preventDefault();
       }
     },

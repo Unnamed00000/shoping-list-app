@@ -125,10 +125,12 @@
   `;
   document.head.appendChild(css);
 
+  let audioContext=null,activeOscillator=null,beepTimer=null,lastBeepAt=0;
   function applyTheme(){document.body.classList.toggle("theme-light",prefs.theme==="light");document.body.classList.toggle("theme-dark",prefs.theme!=="light");}
   function note(msg){const n=document.getElementById("settingsNote"); if(!n)return; n.textContent=msg; n.style.display="block"; setTimeout(()=>n.style.display="none",4000);}
-  function beep(){if(!prefs.sound)return;try{const C=window.AudioContext||window.webkitAudioContext;const c=new C();const o=c.createOscillator();const g=c.createGain();o.frequency.value=720;g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},70)}catch(e){}}
-  document.addEventListener("click",e=>{if(e.target.closest("button")){if(prefs.vibration&&navigator.vibrate)navigator.vibrate(15);beep()}},true);
+  function stopBeep(){clearTimeout(beepTimer);beepTimer=null;if(activeOscillator){try{activeOscillator.stop()}catch(e){}try{activeOscillator.disconnect()}catch(e){}activeOscillator=null}if(audioContext){try{audioContext.close()}catch(e){}audioContext=null}}
+  function beep(){if(!prefs.sound){stopBeep();return}const now=Date.now();if(now-lastBeepAt<120)return;lastBeepAt=now;stopBeep();try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C();const o=c.createOscillator();const g=c.createGain();audioContext=c;activeOscillator=o;o.type="sine";o.frequency.value=720;g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.03,c.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.055);o.connect(g);g.connect(c.destination);o.start();beepTimer=setTimeout(stopBeep,90)}catch(e){stopBeep()}}
+  document.addEventListener("click",e=>{const button=e.target.closest("button");if(!button)return;if(prefs.vibration&&navigator.vibrate)navigator.vibrate(15);if(button.id!=="soundSwitch")beep()},true);
 
   async function shareApp(){if(navigator.share){try{await navigator.share({title:"Shopping List App",text:"Shopping List App",url:APP_URL})}catch(e){}}else if(navigator.clipboard){await navigator.clipboard.writeText(APP_URL);note(t().copied)}}
   function installGuide(){const x=t();note(`${x.installTitle}: ${x.install1} ${x.install2} ${x.install3} ${x.install4}`)}
@@ -141,7 +143,7 @@
     document.getElementById("shareAppBtn").onclick=shareApp;
     document.getElementById("languageCurrent").onclick=()=>document.getElementById("languageMenu").classList.toggle("open");
     document.querySelectorAll(".language-choice").forEach(b=>b.onclick=()=>{state.language=b.dataset.lang;saveState();render();renderSettings();});
-    document.getElementById("soundSwitch").onclick=()=>{prefs.sound=!prefs.sound;savePrefs();beep();renderSettings()};
+    document.getElementById("soundSwitch").onclick=()=>{prefs.sound=!prefs.sound;savePrefs();if(!prefs.sound)stopBeep();renderSettings()};
     document.getElementById("vibrationSwitch").onclick=()=>{prefs.vibration=!prefs.vibration;savePrefs();if(prefs.vibration&&navigator.vibrate)navigator.vibrate(30);renderSettings()};
     document.getElementById("themeSwitch").onclick=()=>{prefs.theme=prefs.theme==="dark"?"light":"dark";savePrefs();applyTheme();renderSettings()};
   }
