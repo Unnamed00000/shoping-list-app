@@ -1,4 +1,4 @@
-/* Listora v1.4.7 — mobile horizontal layout fix */
+/* Listora v1.4.8 — mobile horizontal layout fix */
 
 /* Add product: price + quantity always side by side */
 .grid-2 {
@@ -32,71 +32,89 @@
   line-height: 1.12 !important;
 }
 
-/* Product card: keep checkbox / content / delete horizontal */
+/* Product card: keep content inside card */
 .item-card {
-  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  overflow: hidden !important;
+}
+
+.item-card > * {
+  min-width: 0 !important;
 }
 
 .delete-btn {
-  grid-column: auto !important;
+  grid-column: 2 !important;
   justify-self: end !important;
 }
 
 /* Product edit row: price / quantity / total always side by side */
 .item-edit-row {
   display: grid !important;
-  grid-template-columns: minmax(68px, .9fr) minmax(118px, 1.15fr) minmax(64px, .85fr) !important;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) minmax(0, .8fr) !important;
   gap: 8px !important;
   align-items: end !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.item-edit-row > * {
+  min-width: 0 !important;
 }
 
 .item-edit-label {
   font-size: clamp(.55rem, 2.2vw, .78rem) !important;
   margin-bottom: 5px !important;
   white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .inline-price-input {
   width: 100% !important;
   max-width: none !important;
+  min-width: 0 !important;
   height: 40px !important;
-  padding: 8px 7px !important;
-  font-size: clamp(.72rem, 2.8vw, .9rem) !important;
+  padding: 8px 6px !important;
+  font-size: clamp(.7rem, 2.7vw, .9rem) !important;
 }
 
 .item-edit-row .quantity-control {
   width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
   margin-top: 0 !important;
-  grid-template-columns: 30px minmax(30px, 1fr) 30px !important;
-  gap: 4px !important;
+  grid-template-columns: 28px minmax(0, 1fr) 28px !important;
+  gap: 3px !important;
 }
 
 .item-edit-row .qty-btn {
-  width: 30px !important;
+  width: 28px !important;
+  min-width: 28px !important;
   height: 40px !important;
-  min-width: 30px !important;
   border-radius: 12px !important;
-  font-size: 1rem !important;
+  font-size: .95rem !important;
 }
 
 .item-edit-row .qty-number {
-  min-width: 30px !important;
+  min-width: 0 !important;
   height: 40px !important;
-  padding: 0 4px !important;
-  font-size: clamp(.72rem, 2.8vw, .9rem) !important;
+  padding: 0 3px !important;
+  font-size: clamp(.68rem, 2.6vw, .88rem) !important;
 }
 
 .item-total-inline {
   grid-column: auto !important;
+  min-width: 0 !important;
   min-height: 40px !important;
   margin-top: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
-  font-size: clamp(.66rem, 2.6vw, .9rem) !important;
+  font-size: clamp(.62rem, 2.45vw, .86rem) !important;
   line-height: 1.08 !important;
-  padding: 0 2px !important;
+  padding: 0 1px !important;
   word-break: normal !important;
   overflow-wrap: anywhere !important;
 }
@@ -128,44 +146,51 @@
   }
 
   .item-card {
+    grid-template-columns: auto minmax(0, 1fr) !important;
     gap: 9px !important;
     padding: 12px !important;
   }
 
+  .delete-btn {
+    grid-column: 2 !important;
+    justify-self: end !important;
+  }
+
   .item-edit-row {
-    grid-template-columns: minmax(62px, .85fr) minmax(110px, 1.2fr) minmax(56px, .8fr) !important;
-    gap: 7px !important;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.2fr) minmax(0, .8fr) !important;
+    gap: 6px !important;
   }
 
   .item-edit-row .quantity-control {
-    grid-template-columns: 28px minmax(28px, 1fr) 28px !important;
-    gap: 3px !important;
-  }
-
-  .item-edit-row .qty-btn {
-    width: 28px !important;
-    min-width: 28px !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .item-edit-row {
-    grid-template-columns: minmax(58px, .8fr) minmax(104px, 1.25fr) minmax(52px, .75fr) !important;
-    gap: 5px !important;
-  }
-
-  .item-edit-row .quantity-control {
-    grid-template-columns: 26px minmax(26px, 1fr) 26px !important;
+    grid-template-columns: 26px minmax(0, 1fr) 26px !important;
     gap: 2px !important;
   }
 
   .item-edit-row .qty-btn {
     width: 26px !important;
     min-width: 26px !important;
-    font-size: .95rem !important;
+    font-size: .9rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .item-edit-row {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.25fr) minmax(0, .75fr) !important;
+    gap: 4px !important;
+  }
+
+  .item-edit-row .quantity-control {
+    grid-template-columns: 24px minmax(0, 1fr) 24px !important;
+    gap: 2px !important;
+  }
+
+  .item-edit-row .qty-btn {
+    width: 24px !important;
+    min-width: 24px !important;
+    font-size: .85rem !important;
   }
 
   .item-total-inline {
-    font-size: .62rem !important;
+    font-size: .58rem !important;
   }
 }
