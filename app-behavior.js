@@ -90,14 +90,43 @@
 
   document.head.appendChild(style);
 
+  let lastTouchY = 0;
+
+  function getPageScroller() {
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function isInsideOverlay(target) {
+    const element = target instanceof Element ? target : target && target.parentElement;
+    return !!(element && element.closest(".settings-panel.open, #installGuideModal.open"));
+  }
+
+  function scrollPageBy(deltaY) {
+    const scroller = getPageScroller();
+    const maxScrollTop = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+    const nextScrollTop = Math.min(maxScrollTop, Math.max(0, scroller.scrollTop + deltaY));
+    scroller.scrollTop = nextScrollTop;
+  }
+
+  function normalizeWheelDelta(event) {
+    if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return event.deltaY * 16;
+    if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) return event.deltaY * window.innerHeight;
+    return event.deltaY;
+  }
+
   document.addEventListener(
     "touchstart",
     event => {
       if (event.touches.length > 1) {
         event.preventDefault();
+        return;
+      }
+
+      if (!isInsideOverlay(event.target)) {
+        lastTouchY = event.touches[0].clientY;
       }
     },
-    { passive: false }
+    { passive: false, capture: true }
   );
 
   document.addEventListener(
@@ -105,9 +134,19 @@
     event => {
       if (event.touches.length > 1) {
         event.preventDefault();
+        return;
       }
+
+      if (isInsideOverlay(event.target)) {
+        return;
+      }
+
+      const currentY = event.touches[0].clientY;
+      scrollPageBy(lastTouchY - currentY);
+      lastTouchY = currentY;
+      event.preventDefault();
     },
-    { passive: false }
+    { passive: false, capture: true }
   );
 
   ["gesturestart", "gesturechange", "gestureend"].forEach(type => {
@@ -121,8 +160,14 @@
     event => {
       if (event.ctrlKey) {
         event.preventDefault();
+        return;
+      }
+
+      if (!isInsideOverlay(event.target)) {
+        scrollPageBy(normalizeWheelDelta(event));
+        event.preventDefault();
       }
     },
-    { passive: false }
+    { passive: false, capture: true }
   );
 })();
