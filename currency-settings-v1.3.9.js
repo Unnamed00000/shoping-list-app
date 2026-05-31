@@ -132,4 +132,142 @@
     const strong = about.querySelector("strong");
     if (strong) strong.textContent = "Listora";
 
-    about.querySelectorAll("span").forEach
+    about.querySelectorAll("span").forEach((span) => {
+      span.textContent = span.textContent
+        .replace("v1.3.8", "v1.4.2")
+        .replace("v1.4.1", "v1.4.2")
+        .replace("Shopping List App", "Listora");
+    });
+  }
+
+  function enhanceSettingsCurrency() {
+    const sheet = document.querySelector("#settingsPanel .settings-sheet");
+    if (!sheet) return;
+
+    fixAboutName();
+
+    const languagePicker = sheet.querySelector(".language-picker");
+    if (!languagePicker) return;
+
+    const block = languagePicker.closest(".settings-block");
+    if (!block) return;
+
+    const title = block.querySelector(".settings-title-small");
+    if (title) title.innerHTML = `🌍 ${titleWord()}`;
+
+    const oldRow = block.querySelector(".listora-language-currency-row");
+
+    if (
+      oldRow &&
+      oldRow.contains(languagePicker) &&
+      block.querySelector("#listoraCurrencySelect")
+    ) {
+      block.querySelector("#listoraCurrencySelect").value =
+        localStorage.getItem(CURRENCY_KEY) || "DKK";
+      return;
+    }
+
+    if (oldRow) oldRow.remove();
+
+    const row = document.createElement("div");
+    row.className = "listora-language-currency-row";
+
+    const langBox = document.createElement("div");
+    langBox.innerHTML = `<label class="listora-mini-label">${languageWord()}</label>`;
+
+    const currencyBox = document.createElement("div");
+    const selected = localStorage.getItem(CURRENCY_KEY) || "DKK";
+
+    currencyBox.innerHTML = `
+      <label class="listora-mini-label">${currencyWord()}</label>
+      <select id="listoraCurrencySelect" class="listora-currency-select">
+        ${Object.entries(currencyOptions)
+          .map(
+            ([key, value]) =>
+              `<option value="${key}" ${key === selected ? "selected" : ""}>${value.label}</option>`
+          )
+          .join("")}
+      </select>
+    `;
+
+    languagePicker.parentNode.insertBefore(row, languagePicker);
+    langBox.appendChild(languagePicker);
+    row.appendChild(langBox);
+    row.appendChild(currencyBox);
+
+    const select = document.getElementById("listoraCurrencySelect");
+
+    if (select) {
+      select.addEventListener("change", () => {
+        localStorage.setItem(CURRENCY_KEY, select.value);
+
+        try {
+          if (typeof render === "function") render();
+        } catch (e) {}
+
+        try {
+          if (typeof renderHistory === "function") renderHistory();
+        } catch (e) {}
+
+        setTimeout(enhanceSettingsCurrency, 80);
+      });
+    }
+  }
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      if (
+        event.target &&
+        (event.target.id === "settingsBtn" || event.target.closest("#settingsBtn"))
+      ) {
+        setTimeout(enhanceSettingsCurrency, 80);
+        setTimeout(enhanceSettingsCurrency, 220);
+      }
+    },
+    true
+  );
+
+  const oldOpenSettings =
+    window.openSettings || (typeof openSettings === "function" ? openSettings : null);
+
+  if (oldOpenSettings && !window.__listoraCurrencyOpenSettingsWrapped) {
+    window.__listoraCurrencyOpenSettingsWrapped = true;
+
+    try {
+      openSettings = function () {
+        oldOpenSettings();
+        setTimeout(enhanceSettingsCurrency, 80);
+        setTimeout(enhanceSettingsCurrency, 220);
+      };
+
+      window.openSettings = openSettings;
+
+      const settingsBtn = document.getElementById("settingsBtn");
+      if (settingsBtn) settingsBtn.onclick = openSettings;
+    } catch (e) {}
+  }
+
+  const observer = new MutationObserver(() => {
+    const panel = document.getElementById("settingsPanel");
+
+    if (panel && panel.classList.contains("open")) {
+      setTimeout(enhanceSettingsCurrency, 50);
+    }
+  });
+
+  const panel = document.getElementById("settingsPanel");
+
+  if (panel) {
+    observer.observe(panel, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  setTimeout(() => {
+    try {
+      if (typeof render === "function") render();
+    } catch (e) {}
+  }, 120);
+})();
