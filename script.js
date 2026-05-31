@@ -1,3 +1,5 @@
+const APP_VERSION = "1.3.1";
+
 const translations = {
   en: {
     htmlLang: "en",
@@ -37,7 +39,8 @@ const translations = {
     saved: "Purchase saved",
     needStore: "Enter store name",
     needItems: "Add at least one product",
-    selectedReceipts: "Selected receipts"
+    selectedReceipts: "Selected receipts",
+    copied: "Copied"
   },
   ru: {
     htmlLang: "ru",
@@ -77,7 +80,8 @@ const translations = {
     saved: "Покупка сохранена",
     needStore: "Укажи магазин",
     needItems: "Добавь хотя бы один товар",
-    selectedReceipts: "Выбрано чеков"
+    selectedReceipts: "Выбрано чеков",
+    copied: "Скопировано"
   },
   ka: {
     htmlLang: "ka",
@@ -117,7 +121,8 @@ const translations = {
     saved: "შენაძენი შენახულია",
     needStore: "მიუთითე მაღაზია",
     needItems: "დაამატე მინიმუმ ერთი პროდუქტი",
-    selectedReceipts: "არჩეული ჩეკები"
+    selectedReceipts: "არჩეული ჩეკები",
+    copied: "დაკოპირდა"
   },
   da: {
     htmlLang: "da",
@@ -157,7 +162,8 @@ const translations = {
     saved: "Køb gemt",
     needStore: "Indtast butik",
     needItems: "Tilføj mindst én vare",
-    selectedReceipts: "Valgte kvitteringer"
+    selectedReceipts: "Valgte kvitteringer",
+    copied: "Kopieret"
   }
 };
 
@@ -171,49 +177,75 @@ const currencies = {
 const storageKey = "shopping-list-app-v1";
 const historyStorageKey = "shopping-list-history-v1";
 
+function safeParseArray(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch (error) {
+    localStorage.removeItem(key);
+    return [];
+  }
+}
+
+function makeId() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
 const state = {
   language: localStorage.getItem("shoppingLanguage") || "en",
-  items: JSON.parse(localStorage.getItem(storageKey) || "[]"),
-  history: JSON.parse(localStorage.getItem(historyStorageKey) || "[]"),
+  items: safeParseArray(storageKey),
+  history: safeParseArray(historyStorageKey),
   selectedHistoryIds: new Set()
 };
 
-const itemForm = document.getElementById("itemForm");
-const nameInput = document.getElementById("name");
-const priceInput = document.getElementById("price");
-const quantityInput = document.getElementById("quantity");
-const storeNameInput = document.getElementById("storeName");
-const purchaseDateInput = document.getElementById("purchaseDate");
-const savePurchaseBtn = document.getElementById("savePurchaseBtn");
-const itemsList = document.getElementById("itemsList");
-const emptyState = document.getElementById("emptyState");
-const totalItems = document.getElementById("totalItems");
-const boughtItems = document.getElementById("boughtItems");
-const spentMoney = document.getElementById("spentMoney");
-const clearBtn = document.getElementById("clearBtn");
-const settingsBtn = document.getElementById("settingsBtn");
-const closeSettingsBtn = document.getElementById("closeSettingsBtn");
-const settingsPanel = document.getElementById("settingsPanel");
+if (!translations[state.language]) state.language = "en";
+
+const $ = (id) => document.getElementById(id);
+
+const itemForm = $("itemForm");
+const nameInput = $("name");
+const priceInput = $("price");
+const quantityInput = $("quantity");
+const storeNameInput = $("storeName");
+const purchaseDateInput = $("purchaseDate");
+const savePurchaseBtn = $("savePurchaseBtn");
+const itemsList = $("itemsList");
+const emptyState = $("emptyState");
+const totalItems = $("totalItems");
+const boughtItems = $("boughtItems");
+const spentMoney = $("spentMoney");
+const clearBtn = $("clearBtn");
+const settingsBtn = $("settingsBtn");
+const closeSettingsBtn = $("closeSettingsBtn");
+const settingsPanel = $("settingsPanel");
 const languageButtons = document.querySelectorAll(".language-option");
-const openHistoryBtn = document.getElementById("openHistoryBtn");
-const historyPanel = document.getElementById("historyPanel");
-const closeHistoryBtn = document.getElementById("closeHistoryBtn");
-const historyList = document.getElementById("historyList");
-const historyEmpty = document.getElementById("historyEmpty");
-const selectedHistoryTotal = document.getElementById("selectedHistoryTotal");
-const printArea = document.getElementById("printArea");
+const openHistoryBtn = $("openHistoryBtn");
+const historyPanel = $("historyPanel");
+const closeHistoryBtn = $("closeHistoryBtn");
+const historyList = $("historyList");
+const historyEmpty = $("historyEmpty");
+const selectedHistoryTotal = $("selectedHistoryTotal");
+const printArea = $("printArea");
 
 function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
-purchaseDateInput.value = purchaseDateInput.value || todayISO();
+if (purchaseDateInput && !purchaseDateInput.value) purchaseDateInput.value = todayISO();
+
+function getDict() {
+  return translations[state.language] || translations.en;
+}
 
 function formatMoney(value) {
-  const currency = currencies[state.language];
+  const currency = currencies[state.language] || currencies.en;
   const locale = state.language === "ru" ? "ru-RU" : state.language === "ka" ? "ka-GE" : state.language === "da" ? "da-DK" : "en-US";
-  const cleanValue = Number(value || 0).toLocaleString(locale, {
-    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
+  const number = Number(value || 0);
+  const cleanValue = number.toLocaleString(locale, {
+    minimumFractionDigits: number % 1 === 0 ? 0 : 2,
     maximumFractionDigits: 2
   });
   return currency.position === "before" ? `${currency.symbol}${cleanValue}` : `${cleanValue} ${currency.symbol}`;
@@ -225,8 +257,13 @@ function saveState() {
   localStorage.setItem("shoppingLanguage", state.language);
 }
 
-function getDict() {
-  return translations[state.language];
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function applyLanguage() {
@@ -236,7 +273,7 @@ function applyLanguage() {
     const key = element.dataset.i18n;
     if (dict[key]) element.textContent = dict[key];
   });
-  nameInput.placeholder = dict.defaultProduct;
+  if (nameInput) nameInput.placeholder = dict.defaultProduct;
   languageButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === state.language);
   });
@@ -247,14 +284,15 @@ function itemTotal(item) {
 }
 
 function receiptTotal(receipt) {
-  return receipt.items.reduce((sum, item) => sum + itemTotal(item), 0);
+  return (receipt.items || []).reduce((sum, item) => sum + itemTotal(item), 0);
 }
 
 function receiptQuantity(receipt) {
-  return receipt.items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+  return (receipt.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 }
 
 function renderItems() {
+  if (!itemsList || !emptyState) return;
   const dict = getDict();
   itemsList.innerHTML = "";
   emptyState.style.display = state.items.length ? "none" : "block";
@@ -269,14 +307,14 @@ function renderItems() {
         <div class="item-details"><span>${dict.priceLabel}: ${formatMoney(item.price)}</span></div>
         <div class="quantity-control" aria-label="${dict.quantityLabel}">
           <button class="qty-btn minus-btn" type="button" aria-label="${dict.minusLabel}">−</button>
-          <span class="qty-number">${item.quantity}</span>
+          <span class="qty-number">${Number(item.quantity || 1)}</span>
           <button class="qty-btn plus-btn" type="button" aria-label="${dict.plusLabel}">+</button>
         </div>
         <div class="item-total">${dict.totalLabel}: ${formatMoney(itemTotal(item))}</div>
       </div>
       <button class="delete-btn" type="button" aria-label="${dict.deleteLabel}">×</button>
     `;
-    article.querySelector(".item-name").textContent = item.name;
+    article.querySelector(".item-name").textContent = item.name || "";
     article.querySelector(".check").addEventListener("change", () => toggleItem(item.id));
     article.querySelector(".minus-btn").addEventListener("click", () => changeQuantity(item.id, -1));
     article.querySelector(".plus-btn").addEventListener("click", () => changeQuantity(item.id, 1));
@@ -286,6 +324,7 @@ function renderItems() {
 }
 
 function renderSummary() {
+  if (!totalItems || !boughtItems || !spentMoney) return;
   const totalQuantity = state.items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
   const boughtQuantity = state.items.filter((item) => item.done).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
   const spent = state.items.filter((item) => item.done).reduce((sum, item) => sum + itemTotal(item), 0);
@@ -295,6 +334,7 @@ function renderSummary() {
 }
 
 function renderHistory() {
+  if (!historyList || !historyEmpty) return;
   const dict = getDict();
   historyList.innerHTML = "";
   historyEmpty.style.display = state.history.length ? "none" : "block";
@@ -303,12 +343,12 @@ function renderHistory() {
     const card = document.createElement("article");
     card.className = "history-card";
     const checked = state.selectedHistoryIds.has(receipt.id) ? "checked" : "";
-    const itemsHtml = receipt.items.map((item) => `<span>${escapeHtml(item.name)} — ${item.quantity} × ${formatMoney(item.price)} = ${formatMoney(itemTotal(item))}</span>`).join("");
+    const itemsHtml = (receipt.items || []).map((item) => `<span>${escapeHtml(item.name)} — ${item.quantity} × ${formatMoney(item.price)} = ${formatMoney(itemTotal(item))}</span>`).join("");
     card.innerHTML = `
       <input class="check history-check" type="checkbox" ${checked} />
       <div>
         <h3>${escapeHtml(receipt.store)}</h3>
-        <div class="history-meta">${receipt.date} · ${dict.receiptItems}: ${receiptQuantity(receipt)}</div>
+        <div class="history-meta">${escapeHtml(receipt.date)} · ${dict.receiptItems}: ${receiptQuantity(receipt)}</div>
         <div class="history-items">${itemsHtml}</div>
         <div class="history-total-line">${dict.totalLabel}: ${formatMoney(receiptTotal(receipt))}</div>
         <div class="history-actions">
@@ -322,11 +362,11 @@ function renderHistory() {
     card.querySelector(".print-btn").addEventListener("click", () => printReceipt(receipt));
     historyList.appendChild(card);
   });
-
   renderSelectedHistoryTotal();
 }
 
 function renderSelectedHistoryTotal() {
+  if (!selectedHistoryTotal) return;
   const selectedReceipts = state.history.filter((receipt) => state.selectedHistoryIds.has(receipt.id));
   const total = selectedReceipts.reduce((sum, receipt) => sum + receiptTotal(receipt), 0);
   selectedHistoryTotal.textContent = `${getDict().selectedReceipts}: ${selectedReceipts.length} · ${formatMoney(total)}`;
@@ -346,13 +386,7 @@ function addItem(event) {
   const price = Number(priceInput.value);
   const quantity = Number(quantityInput.value);
   if (!name || price < 0 || quantity < 1) return;
-  state.items.unshift({
-    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
-    name,
-    price,
-    quantity,
-    done: false
-  });
+  state.items.unshift({ id: makeId(), name, price, quantity, done: false });
   itemForm.reset();
   quantityInput.value = 1;
   nameInput.focus();
@@ -365,10 +399,7 @@ function toggleItem(id) {
 }
 
 function changeQuantity(id, delta) {
-  state.items = state.items.map((item) => {
-    if (item.id !== id) return item;
-    return { ...item, quantity: Math.max(1, Number(item.quantity || 1) + delta) };
-  });
+  state.items = state.items.map((item) => item.id === id ? { ...item, quantity: Math.max(1, Number(item.quantity || 1) + delta) } : item);
   render();
 }
 
@@ -385,7 +416,7 @@ function savePurchase() {
   if (!state.items.length) return alert(dict.needItems);
 
   const receipt = {
-    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    id: makeId(),
     store,
     date,
     items: state.items.map((item) => ({ ...item })),
@@ -409,14 +440,8 @@ function toggleReceiptSelection(id, selected) {
 
 function receiptText(receipt) {
   const dict = getDict();
-  const lines = [
-    `Shopping List App`,
-    `${receipt.store}`,
-    `${dict.purchaseDate}: ${receipt.date}`,
-    "",
-    `${dict.receiptItems}:`
-  ];
-  receipt.items.forEach((item) => {
+  const lines = ["Shopping List App", receipt.store, `${dict.purchaseDate}: ${receipt.date}`, "", `${dict.receiptItems}:`];
+  (receipt.items || []).forEach((item) => {
     lines.push(`${item.name} — ${item.quantity} × ${formatMoney(item.price)} = ${formatMoney(itemTotal(item))}`);
   });
   lines.push("", `${dict.totalLabel}: ${formatMoney(receiptTotal(receipt))}`);
@@ -428,18 +453,20 @@ async function shareReceipt(receipt) {
   if (navigator.share) {
     try {
       await navigator.share({ title: `${receipt.store} ${receipt.date}`, text });
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
+    } catch (error) {}
+    return;
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
     await navigator.clipboard.writeText(text);
-    alert("Copied");
+    alert(getDict().copied);
+  } else {
+    alert(text);
   }
 }
 
 function printReceipt(receipt) {
-  const text = receiptText(receipt);
-  printArea.innerHTML = `<pre>${escapeHtml(text)}</pre>`;
+  if (!printArea) return;
+  printArea.innerHTML = `<pre>${escapeHtml(receiptText(receipt))}</pre>`;
   window.print();
 }
 
@@ -465,25 +492,12 @@ function closeHistory() {
   historyPanel.setAttribute("aria-hidden", "true");
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-settingsBtn.addEventListener("click", openSettings);
-closeSettingsBtn.addEventListener("click", closeSettings);
-settingsPanel.addEventListener("click", (event) => {
-  if (event.target === settingsPanel) closeSettings();
-});
-openHistoryBtn.addEventListener("click", openHistory);
-closeHistoryBtn.addEventListener("click", closeHistory);
-historyPanel.addEventListener("click", (event) => {
-  if (event.target === historyPanel) closeHistory();
-});
+if (settingsBtn) settingsBtn.addEventListener("click", openSettings);
+if (closeSettingsBtn) closeSettingsBtn.addEventListener("click", closeSettings);
+if (settingsPanel) settingsPanel.addEventListener("click", (event) => { if (event.target === settingsPanel) closeSettings(); });
+if (openHistoryBtn) openHistoryBtn.addEventListener("click", openHistory);
+if (closeHistoryBtn) closeHistoryBtn.addEventListener("click", closeHistory);
+if (historyPanel) historyPanel.addEventListener("click", (event) => { if (event.target === historyPanel) closeHistory(); });
 
 languageButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -493,11 +507,8 @@ languageButtons.forEach((button) => {
   });
 });
 
-itemForm.addEventListener("submit", addItem);
-savePurchaseBtn.addEventListener("click", savePurchase);
-clearBtn.addEventListener("click", () => {
-  state.items = [];
-  render();
-});
+if (itemForm) itemForm.addEventListener("submit", addItem);
+if (savePurchaseBtn) savePurchaseBtn.addEventListener("click", savePurchase);
+if (clearBtn) clearBtn.addEventListener("click", () => { state.items = []; render(); });
 
 render();
