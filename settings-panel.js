@@ -12,7 +12,8 @@
     en: {
       settings: "Settings",
       installShare: "Installation & Share",
-      installGuide: "Installation guide",
+      installAndroid: "Android: Install app",
+      installIphone: "iPhone: Installation guide",
       shareApp: "Share app",
       language: "App language",
       soundVibration: "Sound & vibration",
@@ -28,17 +29,18 @@
       about: "About app",
       version: "Version",
       developer: "Developer",
-      installTitle: "How to install",
-      install1: "Open this website in your phone browser.",
-      install2: "Tap Share or browser menu.",
-      install3: "Choose Add to Home Screen or Install app.",
-      install4: "Open it from your phone home screen.",
+      iphoneGuide: "On iPhone: open this page in Safari, tap Share, choose Add to Home Screen, then tap Add.",
+      androidPromptUnavailable: "Android: if the install window does not appear, open Chrome menu and choose Install app.",
+      androidInstalled: "Listora is already installed.",
+      androidAccepted: "Installation started.",
+      androidDismissed: "Installation was cancelled.",
       copied: "Link copied"
     },
     ru: {
       settings: "Настройки",
       installShare: "Установка и поделиться",
-      installGuide: "Инструкция по установке",
+      installAndroid: "Android: Установить приложение",
+      installIphone: "iPhone: Инструкция установки",
       shareApp: "Поделиться приложением",
       language: "Язык приложения",
       soundVibration: "Звук и вибрация",
@@ -54,17 +56,18 @@
       about: "О приложении",
       version: "Версия",
       developer: "Разработчик",
-      installTitle: "Как установить",
-      install1: "Откройте сайт в браузере телефона.",
-      install2: "Нажмите Поделиться или меню браузера.",
-      install3: "Выберите Добавить на экран Домой или Установить приложение.",
-      install4: "Откройте приложение с главного экрана телефона.",
+      iphoneGuide: "На iPhone: открой ссылку в Safari, нажми Поделиться, выбери «На экран Домой», затем нажми «Добавить».",
+      androidPromptUnavailable: "Android: если окно установки не появилось, открой меню Chrome и выбери «Установить приложение».",
+      androidInstalled: "Listora уже установлена.",
+      androidAccepted: "Установка началась.",
+      androidDismissed: "Установка отменена.",
       copied: "Ссылка скопирована"
     },
     ka: {
       settings: "პარამეტრები",
       installShare: "დაყენება და გაზიარება",
-      installGuide: "დაყენების ინსტრუქცია",
+      installAndroid: "Android: აპის დაყენება",
+      installIphone: "iPhone: დაყენების ინსტრუქცია",
       shareApp: "აპის გაზიარება",
       language: "აპის ენა",
       soundVibration: "ხმა და ვიბრაცია",
@@ -80,17 +83,18 @@
       about: "აპის შესახებ",
       version: "ვერსია",
       developer: "დეველოპერი",
-      installTitle: "როგორ დავაყენოთ",
-      install1: "გახსენით საიტი ტელეფონის ბრაუზერში.",
-      install2: "დააჭირეთ გაზიარებას ან ბრაუზერის მენიუს.",
-      install3: "აირჩიეთ Add to Home Screen ან Install app.",
-      install4: "გახსენით აპი ტელეფონის მთავარ ეკრანზე.",
+      iphoneGuide: "iPhone-ზე: გახსენი ეს გვერდი Safari-ში, დააჭირე Share-ს, აირჩიე Add to Home Screen და შემდეგ Add.",
+      androidPromptUnavailable: "Android-ზე: თუ დაყენების ფანჯარა არ გამოჩნდა, გახსენი Chrome-ის მენიუ და აირჩიე Install app.",
+      androidInstalled: "Listora უკვე დაყენებულია.",
+      androidAccepted: "დაყენება დაიწყო.",
+      androidDismissed: "დაყენება გაუქმდა.",
       copied: "ბმული დაკოპირდა"
     },
     da: {
       settings: "Indstillinger",
       installShare: "Installation og deling",
-      installGuide: "Installationsvejledning",
+      installAndroid: "Android: Installer app",
+      installIphone: "iPhone: Installationsvejledning",
       shareApp: "Del app",
       language: "App-sprog",
       soundVibration: "Lyd og vibration",
@@ -106,17 +110,18 @@
       about: "Om appen",
       version: "Version",
       developer: "Udvikler",
-      installTitle: "Sådan installerer du",
-      install1: "Åbn siden i telefonens browser.",
-      install2: "Tryk på Del eller browserens menu.",
-      install3: "Vælg Føj til hjemmeskærm eller Installer app.",
-      install4: "Åbn appen fra telefonens hjemmeskærm.",
+      iphoneGuide: "På iPhone: åbn siden i Safari, tryk på Del, vælg Føj til hjemmeskærm, og tryk på Tilføj.",
+      androidPromptUnavailable: "Android: hvis installationsvinduet ikke vises, skal du åbne Chrome-menuen og vælge Installer app.",
+      androidInstalled: "Listora er allerede installeret.",
+      androidAccepted: "Installationen er startet.",
+      androidDismissed: "Installationen blev annulleret.",
       copied: "Link kopieret"
     },
     ar: {
       settings: "الإعدادات",
       installShare: "التثبيت والمشاركة",
-      installGuide: "دليل التثبيت",
+      installAndroid: "Android: تثبيت التطبيق",
+      installIphone: "iPhone: دليل التثبيت",
       shareApp: "مشاركة التطبيق",
       language: "لغة التطبيق",
       soundVibration: "الصوت والاهتزاز",
@@ -132,11 +137,11 @@
       about: "حول التطبيق",
       version: "الإصدار",
       developer: "المطور",
-      installTitle: "طريقة التثبيت",
-      install1: "افتح هذا الموقع في متصفح الهاتف.",
-      install2: "اضغط على مشاركة أو قائمة المتصفح.",
-      install3: "اختر إضافة إلى الشاشة الرئيسية أو تثبيت التطبيق.",
-      install4: "افتحه من شاشة الهاتف الرئيسية.",
+      iphoneGuide: "على iPhone: افتح الرابط في Safari، اضغط مشاركة، اختر إضافة إلى الشاشة الرئيسية، ثم اضغط إضافة.",
+      androidPromptUnavailable: "Android: إذا لم تظهر نافذة التثبيت، افتح قائمة Chrome واختر تثبيت التطبيق.",
+      androidInstalled: "تم تثبيت Listora بالفعل.",
+      androidAccepted: "بدأ التثبيت.",
+      androidDismissed: "تم إلغاء التثبيت.",
       copied: "تم نسخ الرابط"
     }
   };
@@ -144,7 +149,7 @@
   const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk", ar: "🇸🇦 العربية" };
   const t = () => text[state.language] || text.en;
   const savePrefs = () => localStorage.setItem(SETTINGS_KEY, JSON.stringify(prefs));
-  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.24";
+  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.25";
 
   const css = document.createElement("style");
   css.textContent = `
@@ -154,20 +159,26 @@
 
   let audioContext=null,activeOscillator=null,beepTimer=null,lastBeepAt=0;
   function applyTheme(){document.body.classList.toggle("theme-light",prefs.theme==="light");document.body.classList.toggle("theme-dark",prefs.theme!=="light");}
-  function note(msg){const n=document.getElementById("settingsNote"); if(!n)return; n.textContent=msg; n.style.display="block"; setTimeout(()=>n.style.display="none",4000);}
+  let deferredInstallPrompt=null;
+  function note(msg){const n=document.getElementById("settingsNote"); if(!n)return; n.textContent=msg; n.style.display="block"; clearTimeout(window.__settingsNoteTimer); window.__settingsNoteTimer=setTimeout(()=>n.style.display="none",9000);}
+  function isStandalone(){return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone===true;}
+  window.addEventListener("beforeinstallprompt",(event)=>{event.preventDefault();deferredInstallPrompt=event;});
+  window.addEventListener("appinstalled",()=>{deferredInstallPrompt=null;note(t().androidInstalled);});
   function stopBeep(){clearTimeout(beepTimer);beepTimer=null;if(activeOscillator){try{activeOscillator.stop()}catch(e){}try{activeOscillator.disconnect()}catch(e){}activeOscillator=null}if(audioContext){try{audioContext.close()}catch(e){}audioContext=null}}
   function beep(){if(!prefs.sound){stopBeep();return}const now=Date.now();if(now-lastBeepAt<120)return;lastBeepAt=now;stopBeep();try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C();const o=c.createOscillator();const g=c.createGain();audioContext=c;activeOscillator=o;o.type="sine";o.frequency.value=720;g.gain.setValueAtTime(.0001,c.currentTime);g.gain.exponentialRampToValueAtTime(.03,c.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.055);o.connect(g);g.connect(c.destination);o.start();beepTimer=setTimeout(stopBeep,90)}catch(e){stopBeep()}}
   document.addEventListener("click",e=>{const button=e.target.closest("button");if(!button)return;if(prefs.vibration&&navigator.vibrate)navigator.vibrate(15);if(button.id!=="soundSwitch")beep()},true);
 
   async function shareApp(){if(navigator.share){try{await navigator.share({title:"Listora",text:"Listora",url:APP_URL})}catch(e){}}else if(navigator.clipboard){await navigator.clipboard.writeText(APP_URL);note(t().copied)}}
-  function installGuide(){const x=t();note(`${x.installTitle}: ${x.install1} ${x.install2} ${x.install3} ${x.install4}`)}
+  async function installAndroid(){const x=t();if(isStandalone()){note(x.androidInstalled);return}if(!deferredInstallPrompt){note(x.androidPromptUnavailable);return}try{const promptEvent=deferredInstallPrompt;deferredInstallPrompt=null;await promptEvent.prompt();const result=await promptEvent.userChoice;note(result.outcome==="accepted"?x.androidAccepted:x.androidDismissed)}catch(e){note(x.androidPromptUnavailable)}}
+  function showIphoneGuide(){note(t().iphoneGuide)}
 
   function renderSettings(){
     const sheet=settingsPanel?.querySelector(".settings-sheet"); if(!sheet)return; const x=t();
-    sheet.innerHTML=`<div class="settings-head"><h2>${x.settings}</h2><button id="closeSettingsBtn" class="close-btn" type="button">×</button></div><div class="settings-block"><div class="settings-title-small">📲 ${x.installShare}</div><button id="installGuideBtn" class="settings-action" type="button">📖 ${x.installGuide}</button><button id="shareAppBtn" class="settings-action" type="button">📤 ${x.shareApp}</button></div><div class="settings-block"><div class="settings-title-small">🌍 ${x.language}</div><div class="language-picker"><button id="languageCurrent" class="language-current" type="button"><span>${names[state.language]}</span><span>⌄</span></button><div id="languageMenu" class="language-menu">${Object.entries(names).map(([k,v])=>`<button class="language-choice" data-lang="${k}" type="button">${v}</button>`).join("")}</div></div></div><div class="settings-block"><div class="settings-title-small">🔊 ${x.soundVibration}</div><div class="settings-row2"><strong>${x.sound}</strong><button id="soundSwitch" class="switch-pill ${prefs.sound?"on":""}" type="button"></button></div><div class="settings-row2"><strong>${x.vibration}</strong><button id="vibrationSwitch" class="switch-pill ${prefs.vibration?"on":""}" type="button"></button></div></div><div class="settings-block"><div class="settings-title-small">🎨 ${x.theme}</div><button id="themeSwitch" class="settings-action" type="button"><div class="theme-slider"><span>☀️ ${x.light}</span><div class="theme-track ${prefs.theme==="dark"?"dark":""}"><span class="theme-knob"></span></div><span>${x.dark} 🌙</span></div></button></div><div class="settings-block"><div class="settings-title-small">✉️ ${x.feedback}</div><p style="margin:0;color:var(--muted);line-height:1.45">${x.feedbackBody}</p><p style="margin:0"><strong>${x.contacts}</strong> ${x.comingSoon}</p></div><div class="settings-block"><div class="settings-title-small">ℹ️ ${x.about}</div><div class="about-center"><strong>Listora</strong><span>${x.version}: ${getAppVersion()}</span><span>${x.developer}: Adam Margoev 2026</span></div></div><div id="settingsNote" class="settings-note"></div>`;
+    sheet.innerHTML=`<div class="settings-head"><h2>${x.settings}</h2><button id="closeSettingsBtn" class="close-btn" type="button">×</button></div><div class="settings-block"><div class="settings-title-small">📲 ${x.installShare}</div><button id="androidInstallBtn" class="settings-action" type="button">🤖 ${x.installAndroid}</button><button id="iphoneGuideBtn" class="settings-action" type="button">📱 ${x.installIphone}</button><button id="shareAppBtn" class="settings-action" type="button">📤 ${x.shareApp}</button><div id="settingsNote" class="settings-note"></div></div><div class="settings-block"><div class="settings-title-small">🌍 ${x.language}</div><div class="language-picker"><button id="languageCurrent" class="language-current" type="button"><span>${names[state.language]}</span><span>⌄</span></button><div id="languageMenu" class="language-menu">${Object.entries(names).map(([k,v])=>`<button class="language-choice" data-lang="${k}" type="button">${v}</button>`).join("")}</div></div></div><div class="settings-block"><div class="settings-title-small">🔊 ${x.soundVibration}</div><div class="settings-row2"><strong>${x.sound}</strong><button id="soundSwitch" class="switch-pill ${prefs.sound?"on":""}" type="button"></button></div><div class="settings-row2"><strong>${x.vibration}</strong><button id="vibrationSwitch" class="switch-pill ${prefs.vibration?"on":""}" type="button"></button></div></div><div class="settings-block"><div class="settings-title-small">🎨 ${x.theme}</div><button id="themeSwitch" class="settings-action" type="button"><div class="theme-slider"><span>☀️ ${x.light}</span><div class="theme-track ${prefs.theme==="dark"?"dark":""}"><span class="theme-knob"></span></div><span>${x.dark} 🌙</span></div></button></div><div class="settings-block"><div class="settings-title-small">✉️ ${x.feedback}</div><p style="margin:0;color:var(--muted);line-height:1.45">${x.feedbackBody}</p><p style="margin:0"><strong>${x.contacts}</strong> ${x.comingSoon}</p></div><div class="settings-block"><div class="settings-title-small">ℹ️ ${x.about}</div><div class="about-center"><strong>Listora</strong><span>${x.version}: ${getAppVersion()}</span><span>${x.developer}: Adam Margoev 2026</span></div></div>`;
     const about=sheet.querySelector(".about-center");if(about)about.innerHTML=`<strong>Listora</strong><span>${x.version}: ${getAppVersion()}</span><span>${x.developer}: Adam Margoev 2026</span>`;
     document.getElementById("closeSettingsBtn").onclick=closeSettings;
-    document.getElementById("installGuideBtn").onclick=installGuide;
+    document.getElementById("androidInstallBtn").onclick=installAndroid;
+    document.getElementById("iphoneGuideBtn").onclick=showIphoneGuide;
     document.getElementById("shareAppBtn").onclick=shareApp;
     document.getElementById("languageCurrent").onclick=()=>document.getElementById("languageMenu").classList.toggle("open");
     document.querySelectorAll(".language-choice").forEach(b=>b.onclick=()=>{state.language=b.dataset.lang;saveState();render();renderSettings();});

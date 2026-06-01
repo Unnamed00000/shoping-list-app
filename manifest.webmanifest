@@ -2,7 +2,7 @@
   "name": "Listora",
   "short_name": "Listora",
   "description": "Listora — your shopping list app with history, stores, prices, quantity tracking, and expense totals.",
-  "start_url": "./?v=1.4.24-receipt-brand",
+  "start_url": "./?v=1.4.25-install-buttons",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
