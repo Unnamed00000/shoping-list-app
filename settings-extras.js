@@ -4,7 +4,7 @@
 
   function getFooterVersion() {
     const footerLines = document.querySelectorAll(".app-footer p");
-    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.17";
+    return (footerLines[1] && footerLines[1].textContent.trim()) || "v1.4.20";
   }
 
   function setTextIfChanged(element, text) {
