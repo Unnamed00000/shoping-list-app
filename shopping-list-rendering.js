@@ -10,6 +10,7 @@
     if (lang === "ru") return "Цена";
     if (lang === "ka") return "ფასი";
     if (lang === "da") return "Pris";
+    if (lang === "ar") return "السعر";
     return "Price";
   };
 
@@ -18,6 +19,7 @@
     if (lang === "ru") return "Отмена";
     if (lang === "ka") return "გაუქმება";
     if (lang === "da") return "Annuller";
+    if (lang === "ar") return "إلغاء";
     return "Cancel";
   };
 
@@ -26,6 +28,7 @@
     if (lang === "ru") return "✓ Удалено";
     if (lang === "ka") return "✓ წაშლილია";
     if (lang === "da") return "✓ Slettet";
+    if (lang === "ar") return "✓ تم الحذف";
     return "✓ Deleted";
   };
 

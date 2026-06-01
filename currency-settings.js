@@ -7,7 +7,8 @@
     USD: { symbol: "$", position: "before", label: "USD $" },
     GBP: { symbol: "£", position: "before", label: "GBP £" },
     RUB: { symbol: "₽", position: "after", label: "RUB ₽" },
-    GEL: { symbol: "₾", position: "after", label: "GEL ₾" }
+    GEL: { symbol: "₾", position: "after", label: "GEL ₾" },
+    SAR: { symbol: "ر.س", position: "after", label: "SAR ر.س" }
   };
 
   if (!localStorage.getItem(CURRENCY_KEY)) {
@@ -26,6 +27,7 @@
       lang === "ru" ? "ru-RU" :
       lang === "ka" ? "ka-GE" :
       lang === "da" ? "da-DK" :
+      lang === "ar" ? "ar-SA" :
       "en-US";
 
     const n = Number(value || 0);
@@ -101,6 +103,7 @@
     if (lang === "ru") return "Язык приложения";
     if (lang === "da") return "App-sprog";
     if (lang === "ka") return "აპის ენა";
+    if (lang === "ar") return "لغة التطبيق";
 
     return "App language";
   }
@@ -111,6 +114,7 @@
     if (lang === "ru") return "Валюта";
     if (lang === "da") return "Valuta";
     if (lang === "ka") return "ვალუტა";
+    if (lang === "ar") return "العملة";
 
     return "Currency";
   }
@@ -121,6 +125,7 @@
     if (lang === "ru") return "Язык и валюта";
     if (lang === "da") return "Sprog og valuta";
     if (lang === "ka") return "ენა და ვალუტა";
+    if (lang === "ar") return "اللغة والعملة";
 
     return "Language and currency";
   }
