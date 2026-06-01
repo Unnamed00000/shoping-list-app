@@ -50,8 +50,8 @@
 /* Product edit row: price / quantity / total always side by side */
 .item-edit-row {
   display: grid !important;
-  grid-template-columns: minmax(66px, .8fr) minmax(116px, 1.1fr) minmax(88px, .95fr) !important;
-  gap: 7px !important;
+  grid-template-columns: minmax(60px, .72fr) minmax(108px, 1fr) minmax(104px, 1.15fr) !important;
+  gap: 6px !important;
   align-items: end !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -160,7 +160,7 @@
   }
 
   .item-edit-row {
-    grid-template-columns: minmax(58px, .75fr) minmax(108px, 1.1fr) minmax(82px, .95fr) !important;
+    grid-template-columns: minmax(54px, .68fr) minmax(100px, 1fr) minmax(94px, 1.12fr) !important;
     gap: 5px !important;
   }
 
@@ -176,14 +176,14 @@
   }
 
   .item-total-inline {
-    min-width: 82px !important;
+    min-width: 94px !important;
     font-size: .76rem !important;
   }
 }
 
 @media (max-width: 360px) {
   .item-edit-row {
-    grid-template-columns: minmax(54px, .7fr) minmax(100px, 1.15fr) minmax(74px, .9fr) !important;
+    grid-template-columns: minmax(50px, .65fr) minmax(92px, 1fr) minmax(84px, 1.05fr) !important;
     gap: 4px !important;
   }
 
@@ -199,7 +199,7 @@
   }
 
   .item-total-inline {
-    min-width: 74px !important;
+    min-width: 84px !important;
     font-size: .68rem !important;
   }
 }
