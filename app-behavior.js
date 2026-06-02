@@ -8,19 +8,15 @@
   }
 
   const style = document.createElement("style");
-
   style.textContent = `
     html,
     body {
-      max-width: 100%;
       width: 100%;
-      min-height: 100%;
-      overflow-x: hidden !important;
-      overflow-y: auto !important;
-      overscroll-behavior-x: none;
-      overscroll-behavior-y: none;
+      height: 100%;
+      margin: 0;
+      overflow: hidden !important;
+      overscroll-behavior: none;
       -webkit-text-size-adjust: 100%;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -35,43 +31,36 @@
       display: none;
     }
 
-    body {
-      position: relative;
-      touch-action: pan-y;
-    }
-
     .app {
-      max-width: 100%;
-      overflow: visible !important;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: var(--topbar-height);
+      bottom: var(--footer-height);
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       touch-action: pan-y;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
 
-    .card,
-    .list-section,
-    .purchase-card,
-    .summary,
-    .items-list,
-    .history-list,
-    .item-card,
-    .summary-card {
-      max-width: 100%;
-      overflow-x: visible !important;
-    }
-
-    .topbar,
-    .app-footer,
-    .settings-panel,
-    .settings-sheet {
-      max-width: 100%;
-      overflow-x: hidden;
+    .app > section,
+    .app > .summary {
+      width: min(100% - 24px, 760px);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .settings-sheet,
     .history-sheet {
-      overscroll-behavior: contain;
+      overflow-y: auto !important;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       touch-action: pan-y;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -87,21 +76,18 @@
       touch-action: manipulation;
     }
   `;
-
   document.head.appendChild(style);
 
-  ["gesturestart", "gesturechange", "gestureend"].forEach(type => {
-    document.addEventListener(type, event => event.preventDefault(), { passive: false });
+  ["gesturestart", "gesturechange", "gestureend"].forEach((type) => {
+    document.addEventListener(type, (event) => event.preventDefault(), { passive: false });
   });
 
-  document.addEventListener("dblclick", event => event.preventDefault(), { passive: false });
+  document.addEventListener("dblclick", (event) => event.preventDefault(), { passive: false });
 
   window.addEventListener(
     "wheel",
-    event => {
-      if (event.ctrlKey) {
-        event.preventDefault();
-      }
+    (event) => {
+      if (event.ctrlKey) event.preventDefault();
     },
     { passive: false, capture: true }
   );
