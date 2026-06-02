@@ -27,6 +27,7 @@
       lang === "ru" ? "ru-RU" :
       lang === "ka" ? "ka-GE" :
       lang === "da" ? "da-DK" :
+      lang === "de" ? "de-DE" :
       lang === "ar" ? "ar-SA" :
       "en-US";
 
@@ -102,6 +103,7 @@
 
     if (lang === "ru") return "Язык приложения";
     if (lang === "da") return "App-sprog";
+    if (lang === "de") return "App-Sprache";
     if (lang === "ka") return "აპის ენა";
     if (lang === "ar") return "لغة التطبيق";
 
@@ -113,6 +115,7 @@
 
     if (lang === "ru") return "Валюта";
     if (lang === "da") return "Valuta";
+    if (lang === "de") return "Währung";
     if (lang === "ka") return "ვალუტა";
     if (lang === "ar") return "العملة";
 
@@ -124,6 +127,7 @@
 
     if (lang === "ru") return "Язык и валюта";
     if (lang === "da") return "Sprog og valuta";
+    if (lang === "de") return "Sprache und Währung";
     if (lang === "ka") return "ენა და ვალუტა";
     if (lang === "ar") return "اللغة والعملة";
 

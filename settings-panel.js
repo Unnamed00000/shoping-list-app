@@ -117,6 +117,33 @@
       androidDismissed: "Installationen blev annulleret.",
       copied: "Link kopieret"
     },
+    de: {
+      settings: "Einstellungen",
+      installShare: "Installation und Teilen",
+      installAndroid: "Android: App installieren",
+      installIphone: "iPhone: Installationsanleitung",
+      shareApp: "App teilen",
+      language: "App-Sprache",
+      soundVibration: "Ton und Vibration",
+      sound: "Ton",
+      vibration: "Vibration",
+      theme: "Design",
+      light: "Hell",
+      dark: "Dunkel",
+      feedback: "Feedback",
+      feedbackBody: "Wenn du einen Fehler findest, ein Problem hast oder Vorschläge zur Verbesserung der App hast, kontaktiere uns. Wir versuchen zu helfen und deine Fragen zu beantworten.",
+      contacts: "Kontakte:",
+      comingSoon: "Kommt bald, derzeit noch nicht verfügbar.",
+      about: "Über die App",
+      version: "Version",
+      developer: "Entwickler",
+      iphoneGuide: "Auf dem iPhone: Link in Safari öffnen, Teilen antippen, Zum Home-Bildschirm auswählen und Hinzufügen antippen.",
+      androidPromptUnavailable: "Android: Wenn das Installationsfenster nicht erscheint, öffne das Chrome-Menü und wähle App installieren.",
+      androidInstalled: "Listora ist bereits installiert.",
+      androidAccepted: "Installation gestartet.",
+      androidDismissed: "Installation abgebrochen.",
+      copied: "Link kopiert"
+    },
     ar: {
       settings: "الإعدادات",
       installShare: "التثبيت والمشاركة",
@@ -146,10 +173,10 @@
     }
   };
 
-  const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk", ar: "🇸🇦 العربية" };
+  const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk", de: "🇩🇪 Deutsch", ar: "🇸🇦 العربية" };
   const t = () => text[state.language] || text.en;
   const savePrefs = () => localStorage.setItem(SETTINGS_KEY, JSON.stringify(prefs));
-  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.25";
+  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.26";
 
   const css = document.createElement("style");
   css.textContent = `

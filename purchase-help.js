@@ -20,6 +20,11 @@
       title: "Sådan gemmer du et køb",
       body: "Marker de varer, du har købt. Skriv butikkens navn og købsdatoen. Tryk derefter på Gem markerede varer, så gemmer Listora de valgte varer i købshistorikken, hvor du kan åbne dem senere."
     },
+    de: {
+      label: "Hilfe zum Einkauf abschließen",
+      title: "So speicherst du einen Einkauf",
+      body: "Markiere die Produkte, die du gekauft hast. Gib dann den Namen des Geschäfts und das Kaufdatum ein. Tippe auf Markierte Produkte speichern, und Listora speichert diese Produkte in der Einkaufshistorie, damit du sie später öffnen kannst."
+    },
     ar: {
       label: "مساعدة إنهاء الشراء",
       title: "كيفية حفظ الشراء",
