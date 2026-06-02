@@ -1,4 +1,4 @@
-const LISTORA_SW_VERSION = "1.4.28";
+const LISTORA_SW_VERSION = "1.4.29";
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

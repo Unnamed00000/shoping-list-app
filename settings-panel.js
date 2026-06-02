@@ -176,7 +176,7 @@
   const names = { en: "🇬🇧 English", ru: "🇷🇺 Русский", ka: "🇬🇪 ქართული", da: "🇩🇰 Dansk", de: "🇩🇪 Deutsch", ar: "🇸🇦 العربية" };
   const t = () => text[state.language] || text.en;
   const savePrefs = () => localStorage.setItem(SETTINGS_KEY, JSON.stringify(prefs));
-  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.28";
+  const getAppVersion = () => document.querySelectorAll(".app-footer p")[1]?.textContent.trim() || "v1.4.29";
 
   const css = document.createElement("style");
   css.textContent = `
